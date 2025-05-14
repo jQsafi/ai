@@ -737,7 +737,10 @@ const puter = window.puter;
 const promptMessage = '';
 
 const messages = [];
-
+messages.push({ content: * Reply using HTML code instead of markdown code.
+    . Do not use h1 to h6 tags.
+    . Use span, code, pre tags which are inline by default.
+    . Before the code tag add new line and after add new line.", role: 'user' });
 const chatMessages = document.getElementById('chat-messages');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
@@ -824,7 +827,7 @@ function addMessage(sender, message) {
             if(sender === 'You') {
                 messages.push({ content: message, role: 'user' });
                 puter.ai.chat(messages,{model:selectedModel}).then(response => {
-                    addMessage('Tutor', response.message);
+                    addMessage('assistant', response.message);
                 }).catch(error => {
                     console.error("AI response error:", error);
                 });
@@ -835,7 +838,7 @@ function addMessage(sender, message) {
             }
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'You' ? 'sent-message' : 'received-message');
+            messageElement.classList.add(sender === 'user' ? 'sent-message' : 'received-message');
             const html = marked.parse(message, { breaks: true, smartypants: true });
             messageElement.innerHTML = html;
             chatMessages.appendChild(messageElement);
@@ -847,7 +850,7 @@ sendButton.addEventListener('click', () => {
     if (isProcessing) return; // Block if processing
     const message = messageInput.value.trim();
     if (message !== '') {
-        addMessage('You', message);
+        addMessage('user', message);
         messageInput.value = '';
     }
 });
