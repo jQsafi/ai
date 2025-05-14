@@ -824,7 +824,7 @@ let loadingMessageElement = null;
 let isProcessing = false;
 
 function addMessage(sender, message) {
-            if(sender === 'You') {
+            if(sender === 'user') {
                 messages.push({ content: message, role: 'user' });
                 puter.ai.chat(messages,{model:selectedModel}).then(response => {
                     addMessage('assistant', response.message);
@@ -839,8 +839,7 @@ function addMessage(sender, message) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message');
             messageElement.classList.add(sender === 'user' ? 'sent-message' : 'received-message');
-            const html = marked.parse(message, { breaks: true, smartypants: true });
-            messageElement.innerHTML = html;
+            messageElement.innerHTML = message;
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
             messageInput.focus();
