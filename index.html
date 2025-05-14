@@ -820,115 +820,28 @@ let selectedModel = 'gpt-4o-mini'; // Default model
 let loadingMessageElement = null;
 let isProcessing = false;
 
-async function addMessage(sender, message, isError = false) {
-    if (sender === 'You') {
-        if (isProcessing) return; // Block if already processing
-        isProcessing = true;
-        messageInput.disabled = true;
-        sendButton.disabled = true;
+function addMessage(sender, message) {
+            if(sender === 'You') {
+                messages.push({ content: message, role: 'user' });
+                puter.ai.chat(messages).then(response => {
+                    addMessage('Tutor', response.message);
+                }).catch(error => {
+                    console.error("AI response error:", error);
+                });
 
-        messages.push({ content: message, role: 'user' });
-
-        // Add user message
-        const userMessageElement = document.createElement('div');
-        userMessageElement.classList.add('message', 'sent-message');
-        const userHtml = marked.parse(message, { breaks: true, smartypants: true });
-        userMessageElement.innerHTML = `<span class="material-icons message-icon">send</span>${userHtml}`;
-        chatMessages.appendChild(userMessageElement);
-
-        // Add loading message
-        loadingMessageElement = document.createElement('div');
-        loadingMessageElement.classList.add('message', 'loading-message');
-        loadingMessageElement.innerHTML = `<span class="material-icons message-icon">chat_bubble</span>Typing<span class="dots"></span>`;
-        chatMessages.appendChild(loadingMessageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-
-        try {
-            // Attempt streaming call
-            const response = await puter.ai.chat(messages, { model: selectedModel, stream: true });
-
-            if (response.stream) {
-                // Streaming response
-                const reader = response.stream.getReader();
-                let fullMessage = '';
-                let messageElement = null;
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) {
-                        // Stream complete
-                        messages.push({ content: fullMessage, role: 'assistant' });
-                        break;
-                    }
-
-                    // Log raw chunk for debugging
-                    console.log('Stream chunk:', value);
-
-                    // Extract content from chunk
-                    const chunkContent = value.content || '';
-                    if (!chunkContent) {
-                        console.warn('Empty chunk content:', value);
-                        continue;
-                    }
-                    fullMessage += chunkContent;
-
-                    // Remove loading message on first chunk
-                    if (loadingMessageElement && !messageElement) {
-                        loadingMessageElement.remove();
-                        loadingMessageElement = null;
-
-                        // Create received message element
-                        messageElement = document.createElement('div');
-                        messageElement.classList.add('message', 'received-message');
-                        chatMessages.appendChild(messageElement);
-                    }
-
-                    // Update message content with Markdown
-                    if (messageElement) {
-                        const html = marked.parse(fullMessage, { breaks: true, smartypants: true });
-                        messageElement.innerHTML = `<span class="material-icons message-icon">chat_bubble</span>${html}`;
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    }
-                }
             } else {
-                // Fallback to non-streaming
-                console.warn('Streaming not supported, using non-streaming response');
-                if (loadingMessageElement) {
-                    loadingMessageElement.remove();
-                    loadingMessageElement = null;
-                }
-                addMessage('Tutor', response.message);
+                messages.push(message);
+                message=message.content;
             }
-        } catch (error) {
-            // Remove loading message
-            if (loadingMessageElement) {
-                loadingMessageElement.remove();
-                loadingMessageElement = null;
-            }
-            // Add error message
-            console.error('AI response error:', error);
-            addMessage('Tutor', 'Failed to get response. Please try again.', true);
-        } finally {
-            // Re-enable input
-            isProcessing = false;
-            messageInput.disabled = false;
-            sendButton.disabled = false;
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'You' ? 'sent-message' : 'received-message');
+            const html = marked.parse(message, { breaks: true, smartypants: true });
+            messageElement.innerHTML = html;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
             messageInput.focus();
         }
-    } else {
-        messages.push({ content: message, role: 'assistant' });
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', 'received-message');
-        if (isError) {
-            messageElement.classList.add('error-message');
-        }
-        const html = marked.parse(message, { breaks: true, smartypants: true });
-        messageElement.innerHTML = `<span class="material-icons message-icon">chat_bubble</span>${html}`;
-        chatMessages.appendChild(messageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        messageInput.focus();
-    }
-}
 
 sendButton.addEventListener('click', () => {
     if (isProcessing) return; // Block if processing
