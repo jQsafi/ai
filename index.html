@@ -523,82 +523,27 @@ const modelNameDisplay = document.getElementById('model-name');
             tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
         }
 
-        function sendMessage() {
-            const messageText = messageInput.value.trim();
-            if (!messageText) return;
+        function addMessage(sender, message) {
+            if(sender === 'You') {
+                messages.push({ content: message, role: 'user' });
+                puter.ai.chat(messages).then(response => {
+                    addMessage('Tutor', response.message);
+                }).catch(error => {
+                    console.error("AI response error:", error);
+                });
 
-            appendMessage(messageText, 'sent-message');
-            messageInput.value = '';
-            startTyping();
-
-            const model = currentModel;
-            console.log("Sending message to model:", model);
-
-            fetch('https://ai.backend.hnhn.me/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYXBpLWNsaWVudCIsImlhdCI6MTY5MjYwMjM2MywiZXhwIjoyMDA4MzYyMzYzfQ.Mv6K9qlDBlcKzK6J9j7zQ6-x-a3I7f9F6sFj-8KFo8'
-                },
-                body: JSON.stringify({
-                    model: model,
-                    messages: [
-                        { role: 'user', content: messageText }
-                    ],
-                    stream: true
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let aiResponse = '';
-
-                function read() {
-                    reader.read().then(({ done, value }) => {
-                        if (done) {
-                            stopTyping();
-                            appendMessage(aiResponse, 'received-message');
-                            if (!welcomeMessageShown) {
-                                welcomeMessageShown = true;
-                            }
-                            return;
-                        }
-                        const chunk = decoder.decode(value, { stream: true });
-                        try {
-                            const lines = chunk.split('\n');
-                            const parsedLines = lines
-                                .map(line => line.replace(/^data: /, '').trim())
-                                .filter(line => line !== '' && line !== '[DONE]')
-                                .map(line => JSON.parse(line));
-
-                                parsedLines.forEach(parsedLine => {
-                                const { choices } = parsedLine;
-                                if (!choices) {
-                                    return;
-                                }
-                                const { delta } = choices[0];
-                                if (delta?.content) {
-                                    aiResponse += delta.content;
-                                    updateLastMessage(aiResponse, 'received-message');
-                                }
-                            });
-                            read();
-                        } catch (error) {
-                            console.error("Error parsing chunk:", chunk, error);
-                            read();
-                        }
-                    });
-                }
-                read();
-            })
-            .catch(error => {
-                stopTyping();
-                appendMessage(`Error: ${error.message}`, 'received-message');
-                console.error('Error:', error);
-            });
+            } else {
+                messages.push(message);
+                message=message.content;
+            }
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'You' ? 'sent-message' : 'received-message');
+            const html = marked.parse(message, { breaks: true, smartypants: true });
+            messageElement.innerHTML = html;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            messageInput.focus();
         }
 
         function appendMessage(text, messageType) {
