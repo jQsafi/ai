@@ -823,7 +823,7 @@ let isProcessing = false;
 function addMessage(sender, message) {
             if(sender === 'You') {
                 messages.push({ content: message, role: 'user' });
-                puter.ai.chat(messages).then(response => {
+                puter.ai.chat(messages,{model:selectedModel}).then(response => {
                     addMessage('Tutor', response.message);
                 }).catch(error => {
                     console.error("AI response error:", error);
