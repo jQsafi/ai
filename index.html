@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +6,7 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-P853XZ9R');</script>
-<!-- End Google Tag Manager -->
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=GT-P8VC8JF3"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-P8VC8JF3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -19,7 +16,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with any model</title>
+    <title>Chat with any model | Shafayat Hossain </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -29,9 +26,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 85C30.6 85 15 69.4 15 50S30.6 15 50 15s35 15.6 35 35-15.6 35-35 35z' fill='%234285F4'/%3E%3Cpath d='M68.8 30.8L54.6 45c-.8.8-2 1.3-3.2 1.3-.8 0-1.6-.3-2.2-.8L31.2 29.5c-.6-.5-.9-1.3-.9-2.1 0-1.5 1.2-2.7 2.7-2.7h34.1c1.5 0 2.7 1.2 2.7 2.7 0 .8-.3 1.6-.9 2.1z' fill='%23fff'/%3E%3Cpath d='M48.7 52.2l-1.1 14.6c-.1 1.3.9 2.4 2.2 2.4.5 0 1-.2 1.4-.5l12.3-9.7c.7-.6 1-1.5.7-2.4-.5-1-1.5-1.3-2.4-.8l-8.7 6.9z' fill='%23fff'/%3E%3C/svg%3E">
     <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
->
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <style>
         body {
             font-family: 'Google Sans', sans-serif;
@@ -105,14 +101,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .sent-message {
-            background: linear-gradient(90deg, #b0e0e6 0%, #87cefa 100%);  /* Light Blue */
+            background: linear-gradient(90deg, #b0e0e6 0%, #87cefa 100%); /* Light Blue */
             color: #00008b;
             margin-left: auto;
             border-top-right-radius: 0.25rem;
             border-bottom-right-radius: 0.25rem;
         }
         .received-message {
-            background: linear-gradient(90deg, #dda0dd 0%, #d8bfd8 100%);  /* Light Purple */
+            background: linear-gradient(90deg, #dda0dd 0%, #d8bfd8 100%); /* Light Purple */
             color: #4b0082;
             margin-right: auto;
             border-top-left-radius: 0.25rem;
@@ -305,180 +301,372 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             .chat-container {
                 max-width: 100%;
                 border-radius: 0;
-                box-shadow: none;
-                border: none;
+                height: 100vh;
+            }
+            .chat-header {
+                padding: 1rem;
+            }
+            .chat-messages {
+                padding: 0.75rem;
+            }
+            .chat-input-area {
+                padding: 1rem;
+            }
+            #message-input, #send-button {
+                height: 2.75rem;
+                font-size: 0.9rem;
+            }
+            #send-button {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+            .message {
+                font-size: 0.95rem;
+            }
+            .markdown-body h1 {
+                font-size: 2.25rem;
+            }
+            .markdown-body h2 {
+                font-size: 1.75rem;
+            }
+            .markdown-body h3 {
+                font-size: 1.25rem;
+            }
+            #button-container {
+                gap: 0.5rem;
+                margin-left: 0.5rem;
+            }
+            .prompt-btn {
+                font-size: 0.85rem;
+                height: 2.75rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
-        #help-fab {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  width: 56px;
-  height: 56px;
-  background-color: #4285F4;
-  color: white;
-  border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-}
 
-#help-tooltip {
-  position: fixed;
-  bottom: 5.5rem;
-  right: 1.5rem;
-  background-color: #fff;
-  color: #333;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  display: none;
-  z-index: 1000;
-  font-size: 0.95rem;
-}
+        #help-fab {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 56px;
+            height: 56px;
+            background-color: #4285F4;
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            overflow: hidden; /* To contain the dropdown within the circle */
+        }
+
+        #help-fab .material-icons {
+            font-size: 24px;
+        }
+
+        #model-selector {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: none;
+            background-color: transparent;
+            color: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+
+        #model-selector option {
+            background-color: white;
+            color: black;
+        }
+
+        #help-tooltip {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 1.5rem;
+            background-color: #fff;
+            color: #333;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            font-size: 0.95rem;
+        }
+
     </style>
 </head>
-<body class="container">
-    <!-- Floating Help Button -->
-<div id="help-fab" title="Need help?" onclick="toggleHelpTooltip()">
-    <span class="material-icons">help_outline</span>
-  </div>
-  <div id="help-tooltip">
-    This is implementation of prompt. Also hacked version of puter js.!
-  <a href="#" class="contrast" onclick="event.preventDefault;click">Click here</a> to copy the promp
-  </div>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1 class="logo-txt">AI Tutor</h1>
-            <span class="text-sm">Online</span>
-        </div>
-        <div id="chat-messages" class="chat-messages">
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="message-input" placeholder="Say hello or anything to start" tabindex="0" />
-            <button id="send-button">
-                <i class="material-icons">send</i>
-            </button>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P853XZ9R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Chat</h1>
+                <span id="model-name">gpt-4o-mini</span>
+                <div id="help-fab" title="Need help?" onclick="toggleHelpTooltip()">
+                    <select id="model-selector" onchange="changeModel(this.value)">
+                        <option value="gpt-4o-mini" selected>gpt-4o-mini (default)</option>
+                        <option value="gpt-4o">gpt-4o</option>
+                        <option value="o1">o1</option>
+                        <option value="o1-mini">o1-mini</option>
+                        <option value="o1-pro">o1-pro</option>
+                        <option value="o3">o3</option>
+                        <option value="o3-mini">o3-mini</option>
+                        <option value="o4-mini">o4-mini</option>
+                        <option value="gpt-4.1">gpt-4.1</option>
+                        <option value="gpt-4.1-mini">gpt-4.1-mini</option>
+                        <option value="gpt-4.1-nano">gpt-4.1-nano</option>
+                        <option value="gpt-4.5-preview">gpt-4.5-preview</option>
+                        <option value="claude-3-7-sonnet">claude-3-7-sonnet</option>
+                        <option value="claude-3-5-sonnet">claude-3-5-sonnet</option>
+                        <option value="deepseek-chat">deepseek-chat</option>
+                        <option value="deepseek-reasoner">deepseek-reasoner</option>
+                        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                        <option value="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo</option>
+                        <option value="meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo</option>
+                        <option value="meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo</option>
+                        <option value="mistral-large-latest">mistral-large-latest</option>
+                        <option value="pixtral-large-latest">pixtral-large-latest</option>
+                        <option value="codestral-latest">codestral-latest</option>
+                        <option value="google/gemma-2-27b-it">google/gemma-2-27b-it</option>
+                        <option value="grok-beta">grok-beta</option>
+                    </select>
+                    <span class="material-icons">tune</span>
+                </div>
+                <div id="help-tooltip">
+                    <p>Select a model to chat with.</p>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div id="welcome-message" class="received-message">
+                    <p>Hi, I'm your AI assistant. How can I help you today?</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="message-input" placeholder="Type your message..." aria-label="Message input">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
+            <div id="button-container">
+                <button class="prompt-btn" onclick="sendPrompt('Write an email to my boss')">Email</button>
+                <button class="prompt-btn" onclick="sendPrompt('Summarize this article')">Summarize</button>
+                <button class="prompt-btn" onclick="sendPrompt('Write a poem about spring')">Poem</button>
+                <button class="prompt-btn" onclick="sendPrompt('Translate to Spanish')">Translate</button>
+            </div>
         </div>
     </div>
-    <script src="https://jqsafi.github.io/puter.js"></script>
-    <!-- <script src="https://js.puter.com/v2"></script> -->
     <script>
-gsap.registerPlugin(SplitText);
-
-        const puter = window.puter;
-const promptMessage = ``;
-
-        const messages = [];	
-
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
+const modelNameDisplay = document.getElementById('model-name');
+        let currentModel = 'gpt-4o-mini'; // Default model
+        let isTyping = false;
+        let welcomeMessageShown = false;
 
+        const modelMapping = {
+            'gpt-4o-mini': 'gpt-4o-mini',
+            'gpt-4o': 'gpt-4o',
+            'o1': 'o1',
+            'o1-mini': 'o1-mini',
+            'o1-pro': 'o1-pro',
+            'o3': 'o3',
+            'o3-mini': 'o3-mini',
+            'o4-mini': 'o4-mini',
+            'gpt-4.1': 'gpt-4.1',
+            'gpt-4.1-mini': 'gpt-4.1-mini',
+            'gpt-4.1-nano': 'gpt-4.1-nano',
+            'gpt-4.5-preview': 'gpt-4.5-preview',
+            'claude-3-7-sonnet': 'claude-3-7-sonnet',
+            'claude-3-5-sonnet': 'claude-3-5-sonnet',
+            'deepseek-chat': 'deepseek-chat',
+            'deepseek-reasoner': 'deepseek-reasoner',
+            'gemini-2.0-flash': 'gemini-2.0-flash',
+            'gemini-1.5-flash': 'gemini-1.5-flash',
+            'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+            'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+            'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo',
+            'mistral-large-latest': 'mistral-large-latest',
+            'pixtral-large-latest': 'pixtral-large-latest',
+            'codestral-latest': 'codestral-latest',
+            'google/gemma-2-27b-it': 'google/gemma-2-27b-it',
+            'grok-beta': 'grok-beta'
+        };
 
-        const gradients = [
-            { start: '#b0e0e6', end: '#87cefa' },  // Light Blue
-            { start: '#dda0dd', end: '#d8bfd8' },  // Light Purple
-        ];
+        function changeModel(model) {
+            currentModel = model;
+            console.log('Selected model:', currentModel);
+            modelNameDisplay.textContent = modelMapping[model] || model;
+            sessionStorage.setItem('preferredModel', currentModel);
+        }
 
-        let currentGradientIndex = 0;
-        const headerElement = document.querySelector('.chat-header');
-        const sendButtonElement = document.querySelectorAll('button');
+        const preferredModel = sessionStorage.getItem('preferredModel');
+        if (preferredModel) {
+            currentModel = preferredModel;
+            modelNameDisplay.textContent = modelMapping[preferredModel] || preferredModel;
+            document.getElementById('model-selector').value = preferredModel;
+        }
 
-        function animateGradient() {
-            const tl = gsap.timeline({ repeat: -1, yoyo: true });
-            currentGradientIndex = (currentGradientIndex + 1) % gradients.length;
-            const nextGradient = gradients[currentGradientIndex];
+        function toggleHelpTooltip() {
+            const tooltip = document.getElementById('help-tooltip');
+            tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
+        }
 
-            tl.to(headerElement, {
-                backgroundImage: `linear-gradient(to right, ${nextGradient.start}, ${nextGradient.end})`,
-                duration: 2,
-                ease: 'easeInOut'
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            if (!messageText) return;
+
+            appendMessage(messageText, 'sent-message');
+            messageInput.value = '';
+            startTyping();
+
+            const model = currentModel;
+            console.log("Sending message to model:", model);
+
+            fetch('https://ai.backend.hnhn.me/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYXBpLWNsaWVudCIsImlhdCI6MTY5MjYwMjM2MywiZXhwIjoyMDA4MzYyMzYzfQ.Mv6K9qlDBlcKzK6J9j7zQ6-x-a3I7f9F6sFj-8KFo8'
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: [
+                        { role: 'user', content: messageText }
+                    ],
+                    stream: true
+                })
             })
-            .to(sendButtonElement, {
-                backgroundImage: `linear-gradient(to right, ${nextGradient.start}, ${nextGradient.end})`,
-                duration: 2,
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let aiResponse = '';
+
+                function read() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) {
+                            stopTyping();
+                            appendMessage(aiResponse, 'received-message');
+                            if (!welcomeMessageShown) {
+                                welcomeMessageShown = true;
+                            }
+                            return;
+                        }
+                        const chunk = decoder.decode(value, { stream: true });
+                        try {
+                            const lines = chunk.split('\n');
+                            const parsedLines = lines
+                                .map(line => line.replace(/^data: /, '').trim())
+                                .filter(line => line !== '' && line !== '[DONE]')
+                                .map(line => JSON.parse(line));
+
+                                parsedLines.forEach(parsedLine => {
+                                const { choices } = parsedLine;
+                                if (!choices) {
+                                    return;
+                                }
+                                const { delta } = choices[0];
+                                if (delta?.content) {
+                                    aiResponse += delta.content;
+                                    updateLastMessage(aiResponse, 'received-message');
+                                }
+                            });
+                            read();
+                        } catch (error) {
+                            console.error("Error parsing chunk:", chunk, error);
+                            read();
+                        }
+                    });
+                }
+                read();
+            })
+            .catch(error => {
+                stopTyping();
+                appendMessage(`Error: ${error.message}`, 'received-message');
+                console.error('Error:', error);
+            });
+        }
+
+        function appendMessage(text, messageType) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${messageType}`;
+            if (messageType === 'received-message') {
+                messageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
+            } else {
+                messageDiv.textContent = text;
+            }
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            if (messageType === 'sent-message') {
+                animateMessage(messageDiv);
+            }
+        }
+
+        function updateLastMessage(text, messageType) {
+            let lastMessageDiv = chatMessages.lastElementChild;
+            if (!lastMessageDiv || lastMessageDiv.classList.contains('sent-message')) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${messageType}`;
+                messageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
+                chatMessages.appendChild(messageDiv);
+                lastMessageDiv = messageDiv;
+            } else {
+                lastMessageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function animateMessage(messageDiv) {
+            gsap.from(messageDiv, {
+                opacity: 0,
+                y: 20,
+                duration: 0.3,
                 ease: 'easeInOut'
             });
-            SplitText.create(".logo-txt", {
-  type: "words, chars",
-  onSplit(self) { // runs every time it splits
-    gsap.from(self.chars, {
-      duration: 1, 
-      y: 100, 
-      autoAlpha: 0, 
-      stagger: 0.05
-    });
-  }
-});
         }
 
-        animateGradient();
-        setInterval(animateGradient, 2000);
-
-        function addMessage(sender, message) {
-            if(sender === 'You') {
-                messages.push({ content: message, role: 'user' });
-                puter.ai.chat(messages).then(response => {
-                    addMessage('Tutor', response.message);
-                }).catch(error => {
-                    console.error("AI response error:", error);
-                });
-
-            } else {
-                messages.push(message);
-                message=message.content;
-            }
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'You' ? 'sent-message' : 'received-message');
-            const html = marked.parse(message, { breaks: true, smartypants: true });
-            messageElement.innerHTML = html;
-            chatMessages.appendChild(messageElement);
+        function startTyping() {
+            isTyping = true;
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message received-message typing-indicator';
+            typingIndicator.innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
+            chatMessages.appendChild(typingIndicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-            messageInput.focus();
         }
-        sendButton.addEventListener('click', () => {
-            const message = messageInput.value.trim();
-            if (message !== '') {
-                addMessage('You', message);
-                messageInput.value = '';
+
+        function stopTyping() {
+            isTyping = false;
+            const typingIndicator = document.querySelector('.typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
             }
-        });
+        }
 
         messageInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                sendButton.click();
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
             }
         });
 
-
-        function removeLocalStorageKey(key) {
-                localStorage.removeItem(key);
-                console.log(`Local storage key "${key}" has been removed.`);
-            }
-            removeLocalStorageKey('puter.auth.token');
-            function toggleHelpTooltip() {
-    const tooltip = document.getElementById('help-tooltip');
-    tooltip.style.display = tooltip.style.display === 'block' ? 'none' : 'block';
-}
-function copyPromptToClipboard() {
-    navigator.clipboard.writeText(promptMessage)
-        .then(() => {
-            const tooltip = document.getElementById('help-tooltip');
-            prevHtml = tooltip.innerHTML;
-            tooltip.innerText = '✅ Prompt copied!';
-            setTimeout(() => {
-                tooltip.innerHTML = prevHtml;
-            }, 2000);
-        })
-        .catch(err => {
-            console.error('Clipboard error:', err);
-        });
-}
+        function sendPrompt(prompt) {
+            messageInput.value = prompt;
+            sendMessage();
+        }
     </script>
 </body>
 </html>
