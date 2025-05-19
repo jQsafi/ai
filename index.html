@@ -450,7 +450,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             max-height: 300px;
             overflow-y: auto;
         }
+pre {
+  background: #1e1e1e; /* Dark theme */
+  color: #d4d4d4; /* Light text */
+  padding: 15px;
+  border-radius: 8px;
+  font-family: "Fira Code", monospace;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: pre-wrap; /* Wraps long lines */
+}
 
+code {
+  font-family: "Fira Code", monospace;
+  color: #ff9d00; /* Highlighted text */
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
         .model-selector {
             display: flex;
             flex-direction: column;
