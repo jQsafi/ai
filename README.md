@@ -95,7 +95,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🌐 Live Demo
 
-[Try it online!](https://your-demo-link.com)
+[Try it online!](https://jqsafi.github.io/ai-chat)
 
 ---
 
