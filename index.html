@@ -5,8 +5,9 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P853XZ9R');</script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-P8VC8JF3"></script>
+})(window,document,'script','dataLayer','GTM-GT-P8VC8JF3');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-P8VC8JF3"></script>
+    
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -16,7 +17,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with any model | Shafayat Hossain </title>
+    <title>Chat with any model | Shafayat Hossain</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -24,398 +25,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/lib/marked.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 85C30.6 85 15 69.4 15 50S30.6 15 50 15s35 15.6 35 35-15.6 35-35 35z' fill='%234285F4'/%3E%3Cpath d='M68.8 30.8L54.6 45c-.8.8-2 1.3-3.2 1.3-.8 0-1.6-.3-2.2-.8L31.2 29.5c-.6-.5-.9-1.3-.9-2.1 0-1.5 1.2-2.7 2.7-2.7h34.1c1.5 0 2.7 1.2 2.7 2.7 0 .8-.3 1.6-.9 2.1z' fill='%23fff'/%3E%3Cpath d='M48.7 52.2l-1.1 14.6c-.1 1.3.9 2.4 2.2 2.4.5 0 1-.2 1.4-.5l12.3-9.7c.7-.6 1-1.5.7-2.4-.5-1-1.5-1.3-2.4-.8l-8.7 6.9z' fill='%23fff'/%3E%3C/svg%3E">
-    <link
-rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <style>
-        body {
-            font-family: 'Google Sans', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #f3f4f7;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .chat-container {
-            flex: 0 0 auto;
-            width: 100%;
-            max-width: 600px;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            background-color: #fff;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e0e0e0;
-        }
-        .chat-header {
-            flex: 0 0 auto;
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            background: #fff;
-            color: #202124;
-            display: flex;
-            align-items: center;
-        }
-        .chat-header h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-        .chat-header span {
-            margin-left: 0.75rem;
-            font-size: 0.875rem;
-            color: #5f6368;
-        }
-        .chat-messages {
-            flex: 1 1 auto;
-            overflow-y: auto;
-            padding: 1rem 1.5rem;
-        }
-        .chat-input-area {
-            flex: 0 0 auto;
-            padding: 1.25rem 1.5rem;
-            border-top: 1px solid #e2e8f0;
-            background-color: #fff;
-            display: flex;
-        }
-        .message {
-            padding: 0.75rem 1rem;
-            border-radius: 1.5rem;
-            margin-bottom: 0.75rem;
-            max-width: 90%;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            font-size: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .message:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .sent-message {
-            background: linear-gradient(90deg, #b0e0e6 0%, #87cefa 100%); /* Light Blue */
-            color: #00008b;
-            margin-left: auto;
-            border-top-right-radius: 0.25rem;
-            border-bottom-right-radius: 0.25rem;
-        }
-        .received-message {
-            background: linear-gradient(90deg, #dda0dd 0%, #d8bfd8 100%); /* Light Purple */
-            color: #4b0082;
-            margin-right: auto;
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-        }
-        #message-input {
-            flex: 1;
-            border-radius: 2rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            height: 3rem;
-            font-size: 1rem;
-            border: 1px solid #e0e0e0;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        #message-input:focus {
-            border-color: #1a73e8;
-            box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
-        }
-        #send-button {
-            border-radius: 2rem;
-            padding-left: 1.75rem;
-            padding-right: 1.75rem;
-            height: 3rem;
-            font-size: 1rem;
-            background-image: linear-gradient(to right, #b0e0e6, #87cefa); /* Light Blue Gradient */
-            color: #fff;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-        #send-button:hover {
-            background-image: linear-gradient(to right, #add8e6, #87ceeb);
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        }
-        #send-button:active {
-            background-image: linear-gradient(to right, #a9d3d1, #7ec0ee);
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-        #message-input::placeholder {
-            color: #9b9b9b;
-            font-size: 1rem;
-        }
-        .markdown-body {
-            font-family: 'Google Sans', sans-serif;
-            font-size: 1rem;
-            line-height: 1.75;
-            color: #202124;
-        }
-        .markdown-body h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #202124;
-            font-weight: 700;
-        }
-        .markdown-body h2 {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-            color: #202124;
-            font-weight: 600;
-        }
-        .markdown-body h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.6rem;
-            color: #202124;
-            font-weight: 500;
-        }
-        .markdown-body p {
-            margin-bottom: 1rem;
-        }
-        .markdown-body strong {
-            font-weight: 600;
-            color: #202124;
-        }
-        .markdown-body a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-        .markdown-body a:hover {
-            text-decoration: underline;
-        }
-        .markdown-body ul {
-            list-style-type: disc;
-            padding-left: 2em;
-            margin-bottom: 1em;
-        }
-        .markdown-body ol {
-            list-style-type: decimal;
-            padding-left: 2em;
-            margin-bottom: 1em;
-        }
-        .markdown-body li {
-            margin-bottom: 0.25em;
-        }
-        .markdown-body code {
-            padding: 0.25rem 0.5rem;
-            margin: 0 0.25rem;
-            background-color: #f0f4f8;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        }
-        .markdown-body pre {
-            background-color: #f0f4f8;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1em;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            line-height: 1.5;
-        }
-        .markdown-body blockquote {
-            border-left: 4px solid #1a73e8;
-            padding-left: 1rem;
-            margin-bottom: 1em;
-            font-style: italic;
-            color: #5f6368;
-        }
-        .material-icons {
-            font-family: 'Material Icons';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-        }
-        #button-container {
-            display: flex;
-            gap: 1rem;
-            margin-left: 1rem;
-        }
-        .prompt-btn {
-            flex: 1;
-            margin-right: 0.21rem;
-            border-radius: 2rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s;
-            background-image: linear-gradient(to right, #b0e0e6, #87cefa); /* Light Blue Gradient */
-            color: #fff;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .prompt-btn:nth-of-type(odd) {
-            background-image: linear-gradient(to right, #b0e0e6, #87cefa); /* Light Blue Gradient */
-            color: #fff;
-        }
-        .prompt-btn:nth-of-type(odd):hover {
-            background-image: linear-gradient(to right, #add8e6, #87ceeb);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
-        }
-        .prompt-btn:nth-of-type(odd):active {
-            background-image: linear-gradient(to right, #a9d3d1, #7ec0ee);
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-        .prompt-btn:nth-of-type(even) {
-            background-color: #f8f9fa;
-            color: #202124;
-        }
-        .prompt-btn:nth-of-type(even):hover {
-            background-color: #f1f3f4;
-            transform: translateY(-2px);
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
-        }
-        .prompt-btn:nth-of-type(even):active {
-            background-color: #e8eaed;
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .chat-container {
-                max-width: 100%;
-                border-radius: 0;
-                height: 100vh;
-            }
-            .chat-header {
-                padding: 1rem;
-            }
-            .chat-messages {
-                padding: 0.75rem;
-            }
-            .chat-input-area {
-                padding: 1rem;
-            }
-            #message-input, #send-button {
-                height: 2.75rem;
-                font-size: 0.9rem;
-            }
-            #send-button {
-                padding-left: 1.25rem;
-                padding-right: 1.25rem;
-            }
-            .message {
-                font-size: 0.95rem;
-            }
-            .markdown-body h1 {
-                font-size: 2.25rem;
-            }
-            .markdown-body h2 {
-                font-size: 1.75rem;
-            }
-            .markdown-body h3 {
-                font-size: 1.25rem;
-            }
-            #button-container {
-                gap: 0.5rem;
-                margin-left: 0.5rem;
-            }
-            .prompt-btn {
-                font-size: 0.85rem;
-                height: 2.75rem;
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
-
-        #help-fab {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 56px;
-            height: 56px;
-            background-color: #4285F4;
-            color: white;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            overflow: hidden; /* To contain the dropdown within the circle */
-        }
-
-        #help-fab .material-icons {
-            font-size: 24px;
-        }
-
-        #model-selector {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            border: none;
-            background-color: transparent;
-            color: inherit;
-            font-size: 1rem;
-            cursor: pointer;
-            padding: 0;
-            margin: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-        }
-
-        #model-selector option {
-            background-color: white;
-            color: black;
-        }
-
-        #help-tooltip {
-            position: fixed;
-            bottom: 5.5rem;
-            right: 1.5rem;
-            background-color: #fff;
-            color: #333;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            display: none;
-            z-index: 1000;
-            font-size: 0.95rem;
-        }
-
-    </style>
+    <link rel="icon" href="s.ico" type="image/x-icon">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.10/marked.min.js"></script>
 </head>
-<body>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P853XZ9R"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <div class="container">
-        <div class="chat-container">
-            <div class="chat-header">
-                <h1>Chat</h1>
-                <span id="model-name">gpt-4o-mini</span>
-                <div id="help-fab" title="Need help?" onclick="toggleHelpTooltip()">
-                    <select id="model-selector" onchange="changeModel(this.value)">
+<body class="container">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1 class="logo-txt">Chat with any LLM</h1>
+            <span class="model-display" id="model-display">gpt-4o-mini</span>
+            <button id="model-select-btn" aria-label="Change model" title="Change Model">
+                <span class="material-icons">tune</span>
+            </button>
+            <div id="model-menu">
+                <div class="model-selector">
+                    <label for="model-dropdown" class="model-label">Select Model:</label>
+                    <select id="model-dropdown" onchange="handleModelChange()">
                         <option value="gpt-4o-mini" selected>gpt-4o-mini (default)</option>
                         <option value="gpt-4o">gpt-4o</option>
                         <option value="o1">o1</option>
@@ -443,29 +69,19 @@ href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
                         <option value="google/gemma-2-27b-it">google/gemma-2-27b-it</option>
                         <option value="grok-beta">grok-beta</option>
                     </select>
-                    <span class="material-icons">tune</span>
                 </div>
-                <div id="help-tooltip">
-                    <p>Select a model to chat with.</p>
-                </div>
-            </div>
-            <div class="chat-messages" id="chat-messages">
-                <div id="welcome-message" class="received-message">
-                    <p>Hi, I'm your AI assistant. How can I help you today?</p>
-                </div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="message-input" placeholder="Type your message..." aria-label="Message input">
-                <button id="send-button" onclick="sendMessage()">Send</button>
-            </div>
-            <div id="button-container">
-                <button class="prompt-btn" onclick="sendPrompt('Write an email to my boss')">Email</button>
-                <button class="prompt-btn" onclick="sendPrompt('Summarize this article')">Summarize</button>
-                <button class="prompt-btn" onclick="sendPrompt('Write a poem about spring')">Poem</button>
-                <button class="prompt-btn" onclick="sendPrompt('Translate to Spanish')">Translate</button>
             </div>
         </div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="message-input" placeholder="Start Asking ......" tabindex="0" />
+            <button id="send-button">
+                <i class="material-icons">send</i>
+            </button>
+        </div>
     </div>
+    <script src="https://jqsafi.github.io/puter.js"></script>
+    <script src="script.js"></script>
     <script>
         const chatMessages = document.getElementById('chat-messages');
         const messageInput = document.getElementById('message-input');
