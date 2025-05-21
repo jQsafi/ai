@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .chat-bubble {
+    @apply rounded-2xl p-4 max-w-[80%] shadow-sm;
+  }
+  
+  .chat-bubble-ai {
+    @apply bg-accent text-text ml-4;
+  }
+  
+  .chat-bubble-user {
+    @apply bg-primary text-white mr-4;
+  }
+
+  .personality-card {
+    @apply p-4 rounded-xl cursor-pointer transition-all duration-200 hover:scale-[1.02] hover:shadow-md;
+  }
+
+  .input-container {
+    @apply border border-gray-200 rounded-full px-4 py-2 flex items-center gap-2 focus-within:border-primary transition-colors duration-200;
+  }
+}
+
+body {
+  @apply bg-background text-text font-roboto;
+}
+
+.heading-font {
+  @apply font-google-sans;
+}

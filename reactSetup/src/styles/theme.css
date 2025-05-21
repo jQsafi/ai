@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap');
+
+:root {
+  --primary: #1a73e8;
+  --secondary: #8ab4f8;
+  --accent: #d2e3fc;
+  --background: #ffffff;
+  --text: #202124;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.heading-font {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.body-font {
+  font-family: 'Roboto', sans-serif;
+}
