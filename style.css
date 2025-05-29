@@ -6,17 +6,17 @@
 }
 
 body {
-    font-family: 'Google Sans', sans-serif;
+    font-family: 'Google Sans', "Helvetica Neue", sans-serif; /* Added fallback fonts */
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #f3f4f7;
-    line-height: 1.5;
-    color: #202124;
+    background-color: #f8f9fa; /* Light grey background */
+    line-height: 1.6; /* Increased line-height for better readability */
+    color: #1f1f1f; /* Dark grey/black text */
 }
 
 button, input, select {
-    font-family: 'Google Sans', sans-serif;
+    font-family: 'Google Sans', "Helvetica Neue", sans-serif; /* Added fallback fonts */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -36,7 +36,7 @@ button, input, select {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #fff;
+    background-color: #ffffff; /* White chat container background */
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -45,27 +45,27 @@ button, input, select {
 
 .chat-header {
     flex: 0 0 auto;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.5rem; /* Adjusted padding */
     border-bottom: 1px solid #e2e8f0;
-    background: #fff;
-    color: #202124;
+    background: #ffffff; /* White or very light grey header background */
+    color: #1f1f1f; /* Dark grey text */
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem; /* Increased gap */
     position: relative;
 }
 
 .chat-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem; /* Slightly adjusted font size */
     font-weight: 500;
     overflow: hidden;
     white-space: nowrap;
-    color: #202124;
+    color: #1f1f1f; /* Dark grey text */
 }
 
 .chat-header .model-display {
     font-size: 0.875rem;
-    color: #5f6368;
+    color: #5f6368; /* Dark grey text */
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -80,81 +80,82 @@ button, input, select {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to right, #b0e0e6, #87cefa);
-    color: #fff;
+    background-color: transparent; /* Remove background */
+    color: #1a73e8; /* Accent color */
     border: none;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: background-image 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none; /* Remove shadow */
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .chat-header #model-select-btn:hover {
-    background-image: linear-gradient(to right, #add8e6, #87ceeb);
+    color: #1a73e8; /* Accent color */
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .chat-header #model-select-btn:active {
-    background-image: linear-gradient(to right, #a9d3d1, #7ec0ee);
+    color: #1a73e8; /* Accent color */
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .chat-messages {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding: 1rem 1.5rem;
-    background-color: #fff;
+    padding: 1.5rem; /* Increased padding for more space */
+    background-color: #ffffff; /* White background */
 }
 
 .chat-input-area {
     flex: 0 0 auto;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.5rem; /* Adjusted padding */
     border-top: 1px solid #e2e8f0;
-    background-color: #fff;
+    background-color: #ffffff; /* White background */
     display: flex;
+    gap: 0.5rem; /* Adjusted gap */
+    align-items: center; /* Vertically align items */
 }
 
 .message {
-    padding: 0.75rem 1rem;
+    padding: 0.8rem 1.2rem; /* Adjusted padding for messages */
     border-radius: 1.5rem;
     margin-bottom: 0.75rem;
     max-width: 90%;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: none; /* Remove hover effect */
     font-size: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Softer shadow */
     align-items: center;
     gap: 0.5rem;
+    border-radius: 18px; /* Softer border radius */
 }
 
 .message:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Remove hover effect */
+    transform: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .sent-message {
-    background: linear-gradient(90deg, #b0e0e6 0%, #87cefa 100%);
-    color: #00008b;
+    background-color: #d2e3fc; /* Light blue background */
+    color: #1f1f1f; /* Dark grey/black text */
     margin-left: auto;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    /* Example: larger radius on three corners, smaller on one */
+    border-radius: 18px 18px 4px 18px;
     flex-direction: row-reverse;
 }
 
 .received-message {
-    background: linear-gradient(90deg, #dda0dd 0%, #d8bfd8 100%);
-    color: #4b0082;
+    background-color: #f1f3f4; /* Light grey background */
+    color: #1f1f1f; /* Dark grey/black text */
     margin-right: auto;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
+    /* Example: larger radius on three corners, smaller on one */
+    border-radius: 18px 18px 18px 4px;
 }
 
 .loading-message {
-    background: linear-gradient(90deg, #dda0dd 0%, #d8bfd8 100%);
-    color: #4b0082;
+    background-color: #f1f3f4; /* Light grey background */
+    color: #1f1f1f; /* Dark grey/black text */
     margin-right: auto;
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
+    border-radius: 18px 18px 18px 4px;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -190,84 +191,90 @@ button, input, select {
     padding: 0 1.5rem;
     height: 3rem;
     font-size: 1rem;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #dadce0; /* Thin, light grey border */
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    color: #202124;
-    background-color: #fff;
+    color: #1f1f1f; /* Dark grey/black text */
+    background-color: #ffffff; /* White background */
     line-height: 3rem;
+    border-radius: 24px; /* Rounded border-radius */
 }
 
 #message-input:focus {
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+    border-color: #1a73e8; /* Subtle blue border on focus */
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2); /* Subtle blue shadow on focus */
 }
 
 #message-input:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Light grey background when disabled */
 }
 
 #send-button {
-    border-radius: 2rem;
-    padding: 0 1.75rem;
+    border-radius: 24px; /* Rounded border-radius */
+    padding: 0 1rem; /* Adjust padding for icon button */
     height: 3rem;
+    width: 3rem; /* Make it a circle or square with rounded corners */
     font-size: 1rem;
-    background-image: linear-gradient(to right, #b0e0e6, #87cefa);
-    color: #fff;
-    transition: background-image 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    background-color: transparent; /* Transparent background by default */
+    color: #1a73e8; /* Blue accent color for icon */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
     border: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: none; /* No shadow by default */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 #send-button:hover:not(:disabled) {
-    background-image: linear-gradient(to right, #add8e6, #87ceeb);
+    background-color: #1a73e8; /* Blue accent background on hover */
+    color: #ffffff; /* White icon color on hover */
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
 }
 
 #send-button:active:not(:disabled) {
-    background-image: linear-gradient(to right, #a9d3d1, #7ec0ee);
+    background-color: #1a73e8; /* Blue accent background on active */
+    color: #ffffff; /* White icon color on active */
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow on active */
 }
 
 #send-button:disabled {
-    opacity: 0.6;
+    opacity: 0.5; /* More subtle disabled state */
     cursor: not-allowed;
+    background-color: transparent;
+    color: #9aa0a6; /* Grey icon color when disabled */
 }
 
 #message-input::placeholder {
-    color: #9b9b9b;
+    color: #9aa0a6; /* Lighter placeholder text */
     font-size: 1rem;
 }
 
 .markdown-body {
-    font-family: 'Google Sans', sans-serif;
+    font-family: 'Google Sans', "Helvetica Neue", sans-serif; /* Added fallback fonts */
     font-size: 1rem;
-    line-height: 1.75;
-    color: #202124;
+    line-height: 1.6; /* Adjusted line height */
+    color: #1f1f1f; /* Dark grey/black text */
 }
 
 .markdown-body h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Consistent with existing style, ensure it fits Gemini */
     margin-bottom: 1rem;
     font-weight: 700;
 }
 
 .markdown-body h2 {
-    font-size: 2rem;
+    font-size: 2rem; /* Consistent with existing style, ensure it fits Gemini */
     margin-bottom: 0.8rem;
     font-weight: 600;
 }
 
 .markdown-body h3 {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Consistent with existing style, ensure it fits Gemini */
     margin-bottom: 0.6rem;
     font-weight: 500;
 }
@@ -281,7 +288,7 @@ button, input, select {
 }
 
 .markdown-body a {
-    color: #1a73e8;
+    color: #1a73e8; /* Blue accent color for links */
     text-decoration: none;
 }
 
@@ -306,31 +313,41 @@ button, input, select {
 }
 
 .markdown-body code {
-    padding: 0.25rem 0.5rem;
-    margin: 0 0.25rem;
-    background-color: #f0f4f8;
+    padding: 0.2em 0.4em; /* Adjusted padding */
+    margin: 0;
+    background-color: #e8eaed; /* Light grey background for inline code */
     border-radius: 6px;
-    font-size: 0.9rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.85em; /* Slightly smaller font size for inline code */
+    font-family: "Roboto Mono", "Courier New", monospace; /* Added fallback fonts */
 }
 
 .markdown-body pre {
-    background-color: #f0f4f8;
+    background-color: #f1f3f4; /* Light grey background for code blocks */
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1rem;
     overflow-x: auto;
     font-size: 0.9rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: "Roboto Mono", "Courier New", monospace; /* Added fallback fonts */
     line-height: 1.5;
 }
 
+/* Styling for code within pre, if not handled by a library */
+.markdown-body pre code {
+    background-color: transparent; /* Remove double background */
+    padding: 0;
+    margin: 0;
+    font-size: inherit; /* Inherit font size from pre */
+    border-radius: 0;
+}
+
+
 .markdown-body blockquote {
-    border-left: 4px solid #1a73e8;
+    border-left: 4px solid #1a73e8; /* Blue accent color for blockquote border */
     padding-left: 1rem;
     margin-bottom: 1rem;
     font-style: italic;
-    color: #5f6368;
+    color: #5f6368; /* Dark grey text for blockquote */
 }
 
 .material-icons {
@@ -345,65 +362,64 @@ button, input, select {
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: #fff;
+    /* color will be inherited or set by specific button rules */
 }
 
 #button-container {
     display: flex;
-    gap: 1rem;
-    margin-left: 1rem;
+    gap: 0.5rem; /* Reduced gap */
+    margin-left: 0.5rem; /* Reduced margin */
 }
 
 .prompt-btn {
     flex: 1;
-    margin-right: 0.21rem;
-    border-radius: 2rem;
-    font-size: 1rem;
+    padding: 0.5rem 1rem; /* Adjusted padding */
+    border-radius: 20px; /* Softer border radius */
+    font-size: 0.9rem; /* Adjusted font size */
     font-weight: 500;
     cursor: pointer;
-    border: none;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s;
-    background-image: linear-gradient(to right, #b0e0e6, #87cefa);
-    color: #fff;
-    height: 3rem;
+    border: 1px solid transparent; /* Prepare for border on hover/active */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out, background-color 0.2s, border-color 0.2s;
+    height: 2.5rem; /* Adjusted height */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .prompt-btn:nth-of-type(odd) {
-    background-image: linear-gradient(to right, #b0e0e6, #87cefa);
-    color: #fff;
+    background-color: #1a73e8; /* Accent color */
+    color: #ffffff;
 }
 
 .prompt-btn:nth-of-type(odd):hover {
-    background-image: linear-gradient(to right, #add8e6, #87ceeb);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+    background-color: #1765cc; /* Slightly darker blue on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .prompt-btn:nth-of-type(odd):active {
-    background-image: linear-gradient(to right, #a9d3d1, #7ec0ee);
+    background-color: #1459b3; /* Even darker blue on active */
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .prompt-btn:nth-of-type(even) {
-    background-color: #f8f9fa;
-    color: #202124;
+    background-color: #f1f3f4; /* Light grey */
+    color: #1f1f1f; /* Dark text */
+    border: 1px solid #dadce0; /* Light border */
 }
 
 .prompt-btn:nth-of-type(even):hover {
-    background-color: #f1f3f4;
-    transform: translateY(-2px);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+    background-color: #e8eaed; /* Slightly darker grey on hover */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .prompt-btn:nth-of-type(even):active {
-    background-color: #e8eaed;
+    background-color: #dfe1e5; /* Even darker grey on active */
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 #model-menu {
@@ -415,78 +431,86 @@ button, input, select {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     display: none;
     z-index: 1001;
-    padding: 1rem;
-    width: 280px;
-    max-height: 300px;
+    padding: 0.5rem; /* Reduced padding */
+    width: 250px; /* Adjusted width */
+    max-height: 280px; /* Adjusted max height */
     overflow-y: auto;
+    border: 1px solid #dadce0; /* Light grey border */
 }
-pre {
-background: #1e1e1e; /* Dark theme */
-color: #d4d4d4; /* Light text */
+
+/* Remove duplicated pre and code styling here if .markdown-body pre/code is sufficient */
+/* pre {
+background: #1e1e1e;
+color: #d4d4d4; 
 padding: 15px;
 border-radius: 8px;
 font-family: "Fira Code", monospace;
-overflow-x: auto; /* Enables horizontal scrolling */
-white-space: pre-wrap; /* Wraps long lines */
+overflow-x: auto; 
+white-space: pre-wrap; 
 }
 
 code {
 font-family: "Fira Code", monospace;
-color: #ff9d00; /* Highlighted text */
+color: #ff9d00; 
 background: rgba(255, 255, 255, 0.1);
 padding: 2px 5px;
 border-radius: 4px;
-}
+} */
 .model-selector {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.5rem; /* Consistent spacing */
 }
 
 .model-label {
-    font-size: 0.95rem;
-    color: #202124;
+    font-size: 0.9rem; /* Slightly smaller font */
+    color: #1f1f1f; /* Dark grey text */
     font-weight: 500;
 }
 
 #model-dropdown {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid #e0e0e0;
-    font-size: 0.95rem;
-    background-color: #f8f9fa;
+    padding: 0.6rem 0.8rem; /* Adjusted padding */
+    border-radius: 4px; /* Standard border-radius */
+    border: 1px solid #dadce0; /* Light grey border */
+    font-size: 0.9rem; /* Slightly smaller font */
+    background-color: #ffffff; /* White background */
     outline: none;
     cursor: pointer;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    color: #202124;
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23202124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
+    color: #1f1f1f; /* Dark grey text */
+    /* Standard dropdown arrow or remove custom one if browser default is preferred */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%235f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
     background-repeat: no-repeat;
-    background-position: right 0.5rem center;
-    background-size: 1rem;
+    background-position: right 0.75rem center;
+    background-size: 1em; /* Relative size for arrow */
+    -webkit-appearance: none; /* Remove default styling for Safari/Chrome */
+    -moz-appearance: none; /* Remove default styling for Firefox */
+    appearance: none; /* Remove default styling */
 }
 
 #model-dropdown:focus {
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+    border-color: #1a73e8; /* Blue accent border on focus */
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2); /* Subtle blue shadow on focus */
 }
 
 #model-dropdown option {
-    padding: 0.5rem;
-    background-color: #fff;
-    color: #202124;
+    padding: 0.6rem 0.8rem; /* Consistent padding */
+    background-color: #ffffff; /* White background */
+    color: #1f1f1f; /* Dark grey text */
 }
 
 .model-tooltip {
     position: absolute;
-    top: calc(100% + 1rem);
+    top: calc(100% + 0.5rem); /* Adjusted position */
     right: 1rem;
-    background-color: #fff;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.95rem;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff; /* White background */
+    border-radius: 4px; /* Standard border-radius */
+    padding: 0.5rem 0.75rem; /* Adjusted padding */
+    font-size: 0.85rem; /* Slightly smaller font */
+    color: #1f1f1f; /* Dark grey text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
     z-index: 1002;
+    border: 1px solid #dadce0; /* Light grey border */
 }
 
 @media (max-width: 768px) {
@@ -510,157 +534,223 @@ border-radius: 4px;
 
 /* Dark mode */
 :where([data-theme=dark], .dark) body {
-    background-color: #1c2526;
+    background-color: #121212; /* Very dark grey body background */
+    color: #e8eaed; /* Light grey/off-white text */
 }
 
 :where([data-theme=dark], .dark) .chat-container {
-    background-color: #2a2f3b;
-    border-color: #3a3f4b;
+    background-color: #1e1e1e; /* Slightly lighter dark grey chat container */
+    border-color: #3c4043; /* Darker border */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 :where([data-theme=dark], .dark) .chat-header {
-    background-color: #2a2f3b;
-    border-bottom-color: #3a3f4b;
-    color: #e0e0e0;
+    background-color: #1e1e1e; /* Match chat container background */
+    border-bottom-color: #3c4043; /* Darker border */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .chat-header h1 {
-    color: #e0e0e0;
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .chat-header .model-display {
-    color: #b0b0b0;
+    color: #bdc1c6; /* Lighter grey for secondary text */
 }
 
 :where([data-theme=dark], .dark) .chat-header #model-select-btn {
-    background-image: linear-gradient(to right, #4a7fa8, #5a9bd4);
+    background-color: transparent;
+    color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
 }
 
 :where([data-theme=dark], .dark) .chat-header #model-select-btn:hover {
-    background-image: linear-gradient(to right, #5a9bd4, #6ab0e0);
+    color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
 }
 
 :where([data-theme=dark], .dark) .chat-header #model-select-btn:active {
-    background-image: linear-gradient(to right, #3a6f98, #4a8fc4);
+    color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
 }
 
 :where([data-theme=dark], .dark) .chat-messages {
-    background-color: #2a2f3b;
+    background-color: #1e1e1e; /* Match chat container background */
 }
 
 :where([data-theme=dark], .dark) .chat-input-area {
-    background-color: #2a2f3b;
-    border-top-color: #3a3f4b;
+    background-color: #1e1e1e; /* Match chat container background */
+    border-top-color: #3c4043; /* Darker border */
 }
 
 :where([data-theme=dark], .dark) .sent-message {
-    background: linear-gradient(90deg, #4a7fa8 0%, #5a9bd4 100%);
-    color: #e0e0e0;
+    background-color: #2c3a4f; /* Dark blue/grey background */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .received-message,
 :where([data-theme=dark], .dark) .loading-message {
-    background: linear-gradient(90deg, #7b5e8e 0%, #9575a8 100%);
-    color: #e0e0e0;
+    background-color: #303134; /* Medium dark grey background */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .error-message {
-    border: 1px solid #cc3333;
-    background: linear-gradient(90deg, #a8071a 0%, #cc3333 100%);
-    color: #ffe6e6;
+    border: 1px solid #f28b82; /* Lighter red for error border */
+    background-color: #5c2b29; /* Dark red background for error */
+    color: #f28b82; /* Lighter red text for error */
 }
 
 :where([data-theme=dark], .dark) .message-icon {
-    color: #e0e0e0;
+    color: #e8eaed; /* Light grey icon color */
 }
 
 :where([data-theme=dark], .dark) #message-input {
-    background-color: #3a3f4b;
-    border-color: #4a4f5b;
-    color: #e0e0e0;
+    background-color: #303134; /* Medium dark grey background */
+    border-color: #5f6368; /* Darker border */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) #message-input::placeholder {
-    color: #8a8a8a;
+    color: #9aa0a6; /* Lighter placeholder text */
 }
 
 :where([data-theme=dark], .dark) #message-input:disabled {
-    background-color: #4a4f5b;
-    opacity: 0.6;
+    background-color: #3c4043; /* Darker grey when disabled */
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
 :where([data-theme=dark], .dark) #send-button {
-    background-image: linear-gradient(to right, #4a7fa8, #5a9bd4);
+    background-color: transparent;
+    color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
 }
 
 :where([data-theme=dark], .dark) #send-button:hover:not(:disabled) {
-    background-image: linear-gradient(to right, #5a9bd4, #6ab0e0);
+    background-color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
+    color: #1e1e1e; /* Dark background for icon on hover */
 }
 
 :where([data-theme=dark], .dark) #send-button:active:not(:disabled) {
-    background-image: linear-gradient(to right, #3a6f98, #4a8fc4);
+    background-color: #8ab4f8; /* Lighter/more vibrant blue for dark mode accent */
+    color: #1e1e1e; /* Dark background for icon on active */
 }
 
 :where([data-theme=dark], .dark) #send-button:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    color: #5f6368; /* Grey icon when disabled */
 }
 
 :where([data-theme=dark], .dark) .markdown-body {
-    color: #e0e0e0;
+    font-family: 'Google Sans', "Helvetica Neue", sans-serif; /* Added fallback fonts */
+    font-size: 1rem; /* Ensure consistency */
+    line-height: 1.6; /* Consistent line height */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .markdown-body h1,
 :where([data-theme=dark], .dark) .markdown-body h2,
 :where([data-theme=dark], .dark) .markdown-body h3,
 :where([data-theme=dark], .dark) .markdown-body strong {
-    color: #e0e0e0;
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .markdown-body a {
-    color: #4a9bff;
+    color: #8ab4f8; /* Lighter/more vibrant blue for links */
 }
 
 :where([data-theme=dark], .dark) .markdown-body code {
-    background-color: #3a3f4b;
-    color: #e0e0e0;
+    background-color: #303134; /* Medium dark grey background for inline code */
+    color: #e8eaed; /* Light grey text */
+    font-family: "Roboto Mono", "Courier New", monospace; /* Added fallback fonts */
 }
 
 :where([data-theme=dark], .dark) .markdown-body pre {
-    background-color: #3a3f4b;
-    color: #e0e0e0;
+    background-color: #282a2d; /* Slightly lighter dark grey for code blocks */
+    color: #e8eaed; /* Light grey text */
+    font-family: "Roboto Mono", "Courier New", monospace; /* Added fallback fonts */
 }
 
 :where([data-theme=dark], .dark) .markdown-body blockquote {
-    border-left-color: #4a9bff;
-    color: #b0b0b0;
+    border-left-color: #8ab4f8; /* Lighter/more vibrant blue for blockquote border */
+    color: #bdc1c6; /* Lighter grey text for blockquote */
 }
 
 :where([data-theme=dark], .dark) #model-menu {
-    background-color: #2a2f3b;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #282a2d; /* Slightly lighter dark grey background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    border: 1px solid #3c4043; /* Darker border */
 }
 
 :where([data-theme=dark], .dark) .model-label {
-    color: #e0e0e0;
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) #model-dropdown {
-    background-color: #3a3f4b;
-    border-color: #4a4f5b;
-    color: #e0e0e0;
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23e0e0e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
+    background-color: #303134; /* Medium dark grey background */
+    border-color: #5f6368; /* Darker border */
+    color: #e8eaed; /* Light grey text */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23e8eaed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
 }
 
 :where([data-theme=dark], .dark) #model-dropdown option {
-    background-color: #2a2f3b;
-    color: #e0e0e0;
+    background-color: #303134; /* Medium dark grey background */
+    color: #e8eaed; /* Light grey text */
 }
 
 :where([data-theme=dark], .dark) .model-tooltip {
-    background-color: #2a2f3b;
-    color: #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #282a2d; /* Slightly lighter dark grey background */
+    color: #e8eaed; /* Light grey text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    border: 1px solid #3c4043; /* Darker border */
 }
+
+/* Typing indicator spinner styles */
+.spinner {
+  display: inline-block;
+  position: relative;
+  width: 60px; /* Adjust width as needed */
+  height: 20px; /* Adjust height as needed */
+}
+
+.spinner span {
+  display: inline-block;
+  width: 8px; /* Size of each dot */
+  height: 8px; /* Size of each dot */
+  border-radius: 50%;
+  background-color: currentColor; /* Use message text color */
+  opacity: 0.5;
+  animation: spinner-dots 1.4s infinite ease-in-out both;
+  position: absolute;
+  bottom: 0; /* Align with baseline of text if possible */
+}
+
+.spinner span:nth-child(1) {
+  left: 0px;
+  animation-delay: -0.32s;
+}
+
+.spinner span:nth-child(2) {
+  left: 12px; /* Spacing = dot width + gap */
+  animation-delay: -0.16s;
+}
+
+.spinner span:nth-child(3) {
+  left: 24px;
+  animation-delay: 0s;
+}
+
+@keyframes spinner-dots {
+  0%, 80%, 100% {
+    transform: scale(0.5); /* Start smaller or invisible */
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1); /* Become full size */
+    opacity: 1;
+  }
+}
+
+/* Adjustments for dark mode if necessary, though currentColor should handle it */
+/* For example, if a specific color is needed instead of currentColor:
+:where([data-theme=dark], .dark) .spinner span {
+  background-color: #b0b0b0; 
+}
+*/
