@@ -211,3 +211,46 @@ modelSelectBtn.addEventListener('keydown', (event) => {
         toggleModelMenu(event);
     }
 });
+
+function localStorageWithExpiry(key, value) {
+    const now = Date.now();
+    const days15 = 15 * 24 * 60 * 60 * 1000;
+
+    // Clean all expired items if no key provided
+    if (key === undefined) {
+        for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            try {
+                const item = JSON.parse(localStorage.getItem(k));
+                if (item && item.expiry && now > item.expiry) {
+                    localStorage.removeItem(k);
+                }
+            } catch (e) {}
+        }
+        return;
+    }
+
+    // SET
+    if (value !== undefined) {
+        const item = {
+            value: value,
+            expiry: now + days15
+        };
+        localStorage.setItem(key, JSON.stringify(item));
+        return;
+    }
+
+    // GET
+    const itemStr = localStorage.getItem(key);
+    if (!itemStr) return null;
+    try {
+        const item = JSON.parse(itemStr);
+        if (item && item.expiry && now > item.expiry) {
+            localStorage.removeItem(key);
+            return null;
+        }
+        return item.value;
+    } catch (e) {
+        return null;
+    }
+}
