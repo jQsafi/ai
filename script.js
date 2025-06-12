@@ -88,10 +88,12 @@ let loadingMessageElement = null;
 let isProcessing = false;
 
 function addMessage(sender, message) {
+    isProcessing = true;
             if(sender === 'user') {
                 messages.push({ content: message, role: 'user' });
                 puter.ai.chat(messages,{model:selectedModel}).then(response => {
                     addMessage('assistant', response.message);
+                    isProcessing = false;
                 }).catch(error => {
                     console.error("AI response error:", error);
                 });
@@ -112,7 +114,7 @@ function addMessage(sender, message) {
 
 sendButton.addEventListener('click', () => {
     if (isProcessing) return; // Block if processing
-    const message = messageInput.value.trim();
+    const message = sanitizeHTML(messageInput.value.trim());
     if (message !== '') {
         addMessage('user', message);
         messageInput.value = '';
@@ -211,7 +213,13 @@ modelSelectBtn.addEventListener('keydown', (event) => {
         toggleModelMenu(event);
     }
 });
-
+function sanitizeHTML(str) {
+    return str.replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+}
 function localStorageWithExpiry(key, value) {
     const now = Date.now();
     const days15 = 15 * 24 * 60 * 60 * 1000;
