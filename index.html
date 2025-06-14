@@ -50,6 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <style>
       /* Reset styles for elements within message content to prevent global style bleed */
       .message-content > * {
+        font-size: 0.95rem; /* Slightly smaller base font size for message content */
         all: revert; /* Broad reset for direct children to user-agent styles */
       }
 
@@ -64,15 +65,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         font-weight: revert;
         margin-top: revert;
         margin-bottom: revert;
-        line-height: revert;
+        line-height: 1; /* Adjust line-height for headings */
         color: inherit; /* Inherit text color from the message bubble */
+        font-size: revert; /* Allow headings to have their natural relative sizes */
       }
       .message-content p {
         margin-top: revert;
         margin-bottom: revert;
-        line-height: revert;
+        line-height: 1; /* Reduced line-height for paragraphs */
         color: inherit;
-        font-size: inherit;
+        font-size: 0.9rem; /* Smaller font size for paragraphs */
       }
       .message-content ul,
       .message-content ol {
@@ -80,14 +82,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         margin: revert;
         padding-left: 2em; /* Common default for lists */
         color: inherit;
-        font-size: inherit;
+        font-size: 0.9rem; /* Smaller font size for lists */
       }
       .message-content li {
         margin: revert;
         padding: revert;
-        line-height: revert;
+        line-height: 1.5; /* Reduced line-height for list items */
         color: inherit;
-        font-size: inherit;
+        font-size: inherit; /* Inherit from ul/ol or p if nested */
       }
       .message-content a {
         color: #3b82f6; /* Tailwind's blue-500, or choose another link color */
@@ -106,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         overflow-x: auto;
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.875em;
-        line-height: 1.5;
+        line-height: 1.4; /* Slightly tighter line-height for code blocks */
         color: #1f2937; /* Tailwind gray-800 */
         white-space: pre; /* Ensure pre formatting is respected */
       }
@@ -121,10 +123,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       .message-content pre > code { /* Reset styles for code inside pre to inherit from pre */
         font-family: inherit; font-size: inherit; color: inherit; background-color: transparent; padding: 0; border-radius: 0;
       }
-      .message-content blockquote { margin: 0 0 1rem; padding: 0.5rem 1rem; border-left: 0.25rem solid #d1d5db; /* Tailwind gray-300 */ color: #4b5563; /* Tailwind gray-600 */ font-size: inherit; }
-      .message-content table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; color: inherit; }
-      .message-content th, .message-content td { border: 1px solid #e5e7eb; /* Tailwind gray-200 */ padding: 0.5rem; text-align: left; font-size: inherit; }
-      .message-content th { font-weight: bold; background-color: #f9fafb; /* Tailwind gray-50 */ }
+      .message-content blockquote { margin: 0 0 0.8rem; padding: 0.4rem 0.8rem; border-left: 0.25rem solid #d1d5db; /* Tailwind gray-300 */ color: #4b5563; /* Tailwind gray-600 */ font-size: 0.9rem; line-height: 1.5; }
+      .message-content table { border-collapse: collapse; width: 100%; margin-bottom: 0.8rem; color: inherit; font-size: 0.85rem; }
+      .message-content th, .message-content td { border: 1px solid #e5e7eb; /* Tailwind gray-200 */ padding: 0.4rem; text-align: left; line-height: 1.4; }
+      .message-content th { font-weight: bold; background-color: #f9fafb; /* Tailwind gray-50 */  }
       .message-content hr { margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid #e5e7eb; /* Tailwind gray-200 */ }
       .message-content img { max-width: 100%; height: auto; display: block; border-radius: 0.25rem; }
     </style>
