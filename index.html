@@ -50,7 +50,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <style>
       /* Reset styles for elements within message content to prevent global style bleed */
       .message-content > * {
-        font-size: 0.95rem; /* Slightly smaller base font size for message content */
         all: revert; /* Broad reset for direct children to user-agent styles */
       }
 
@@ -65,29 +64,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         font-weight: revert;
         margin-top: revert;
         margin-bottom: revert;
-        line-height: 1; /* Adjust line-height for headings */
+        line-height: .5; /* Tighter line-height for headings */
         color: inherit; /* Inherit text color from the message bubble */
         font-size: revert; /* Allow headings to have their natural relative sizes */
       }
       .message-content p {
-        margin-top: revert;
-        margin-bottom: revert;
-        line-height: 1; /* Reduced line-height for paragraphs */
+        margin-top: 0;    /* Explicitly remove top margin */
+        margin-bottom: 0.2em; /* Small space between paragraphs */
+        line-height: .5;   /* Very tight line-height for paragraphs */
         color: inherit;
         font-size: 0.9rem; /* Smaller font size for paragraphs */
       }
       .message-content ul,
       .message-content ol {
         list-style: revert;
-        margin: revert;
-        padding-left: 2em; /* Common default for lists */
+        margin-top: 0;    /* Explicitly remove top margin */
+        margin-bottom: 0.2em; /* Small space after lists */
+        padding-left: 1.2em; /* Reduced left padding for lists */
         color: inherit;
         font-size: 0.9rem; /* Smaller font size for lists */
       }
       .message-content li {
-        margin: revert;
-        padding: revert;
-        line-height: 1.5; /* Reduced line-height for list items */
+        margin-top: 0;
+        margin-bottom: 0.1em; /* Very small space between list items */
+        padding-left: 0.2em;  /* Small padding for list item marker */
+        line-height: .5;   /* Very tight line-height for list items */
         color: inherit;
         font-size: inherit; /* Inherit from ul/ol or p if nested */
       }
