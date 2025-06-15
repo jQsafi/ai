@@ -206,16 +206,16 @@ function displayMessage(sender, content) {
     contentElement.classList.add('message-content'); // Add a class to target message content
     // Treat all content as Markdown and parse it to HTML for display.
     contentElement.innerHTML = DOMPurify.sanitize(marked.parse(content));
+    // Highlight code blocks using PrismJS
+    if (window.Prism) {
+        Prism.highlightAllUnder(contentElement);
+    }
 
     if (sender === 'user') { // User message
         messageElement.classList.add('bg-blue-100', 'ml-auto', 'rounded-tr-none');
         messageElement.appendChild(contentElement);
     } else { // 'assistant'
         messageElement.classList.add('mr-auto', 'rounded-tl-none', 'flex', 'items-start', 'gap-3');
-        const avatar = document.createElement('img');
-        avatar.src = 'logo.png';
-        avatar.alt = 'Avatar';
-        avatar.classList.add('h-8', 'w-8', 'rounded-full', 'object-cover');
         
         const messageBodyContainer = document.createElement('div');
         messageBodyContainer.classList.add('flex-grow', 'flex', 'flex-col'); // Allow content and button to stack
@@ -233,7 +233,6 @@ function displayMessage(sender, content) {
         });
         messageBodyContainer.appendChild(copyMessageButton);
 
-        messageElement.appendChild(avatar); 
         messageElement.appendChild(messageBodyContainer);
     }
     chatMessages.appendChild(messageElement);
