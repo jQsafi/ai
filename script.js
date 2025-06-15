@@ -211,10 +211,11 @@ function displayMessage(sender, content) {
         messageElement.classList.add('bg-blue-100', 'ml-auto', 'rounded-tr-none');
         messageElement.appendChild(contentElement);
     } else { // 'assistant'
-        messageElement.classList.add('bg-purple-100', 'mr-auto', 'rounded-tl-none', 'flex', 'items-start', 'gap-3');
-        const avatar = document.createElement('div');
-        avatar.classList.add('flex', 'items-center', 'justify-center', 'h-8', 'w-8', 'rounded-full', 'bg-indigo-600', 'text-white', 'text-sm', 'font-semibold');
-        avatar.textContent = 'G';
+        messageElement.classList.add('mr-auto', 'rounded-tl-none', 'flex', 'items-start', 'gap-3');
+        const avatar = document.createElement('img');
+        avatar.src = 'logo.png';
+        avatar.alt = 'Avatar';
+        avatar.classList.add('h-8', 'w-8', 'rounded-full', 'object-cover');
         
         const messageBodyContainer = document.createElement('div');
         messageBodyContainer.classList.add('flex-grow', 'flex', 'flex-col'); // Allow content and button to stack
@@ -479,4 +480,59 @@ document.addEventListener('DOMContentLoaded', () => {
     if (newChatButton) {
         newChatButton.addEventListener('click', startNewChat);
     }
+
+    // --- Mobile sidebar functionality START ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+
+    if (mobileMenuBtn && sidebar && closeSidebarBtn && mainContent) {
+        mobileMenuBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling to document listener
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            // Dim and disable main content on mobile when sidebar is an overlay
+            if (window.innerWidth < 768) {
+                mainContent.classList.add('opacity-50', 'pointer-events-none');
+            }
+        });
+
+        closeSidebarBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full');
+            mainContent.classList.remove('opacity-50', 'pointer-events-none');
+        });
+
+        // Click outside (on document) to close sidebar on mobile
+        document.addEventListener('click', (event) => {
+            // Check if sidebar is open (i.e., has 'translate-x-0')
+            if (sidebar.classList.contains('translate-x-0')) {
+                // Check if the click was outside the sidebar and not on the mobile menu button
+                if (!sidebar.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                    // Only trigger close if on mobile view (where sidebar is an overlay)
+                    if (window.innerWidth < 768) { // Tailwind 'md' breakpoint (768px)
+                        closeSidebarBtn.click(); // Simulate click on the close button
+                    }
+                }
+            }
+        });
+    }
+
+    // Handle window resize events
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) { // Resized to desktop
+            if (mainContent) {
+                mainContent.classList.remove('opacity-50', 'pointer-events-none');
+            }
+            // Tailwind's md: classes will handle sidebar visibility/positioning
+        } else { // Resized to mobile
+            // If sidebar is open and main content isn't dimmed (e.g., was resized from desktop)
+            if (sidebar && sidebar.classList.contains('translate-x-0') && mainContent && !mainContent.classList.contains('opacity-50')) {
+                mainContent.classList.add('opacity-50', 'pointer-events-none');
+            }
+        }
+    });
+    // --- Mobile sidebar functionality END ---
 });
