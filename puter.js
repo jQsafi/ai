@@ -1,5 +1,6 @@
 // Copyright 2024-present Puter Technologies Inc. All rights reserved.
 // Generated on 2025-05-07 03:06
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJnWXZ1NVdtbFFaZVlBRitDZUNnK2NnPT0iLCJ1dSI6Img3L3Nwdms1U3FPdjNJNlFwVzZvT2c9PSIsImlhdCI6MTc1MDE5MDg2OX0.2qts9HNZtJAlhxPMml7_-EBpPjrwQqnBFEWR8fdspNE
 
 ( () => {
     var e = {
@@ -7476,7 +7477,7 @@
                 onAuth;
                 puterAuthState = {
                     isPromptOpen: !1,
-                    authGranted: null,
+                    authGranted: 1,
                     resolver: null
                 };
                 appInstanceID;
@@ -7563,7 +7564,7 @@
                         this.authToken = decodeURIComponent(s.get("puter.auth.token")),
                         this.initSubmodules();
                         try {
-                            this.setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJ3RnFNc1RpVlM5bWRtWEsyaFpPMWVBPT0iLCJ1dSI6InhhTXoxZFd0VC9tMFR2ZVVPck1pa3c9PSIsImlhdCI6MTc0OTkyNzIwNX0.UCzYTah8xRWbLbzThhO1oIklCOT_f4ffa8KwiDA6GKg"),
+                            this.setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJnWXZ1NVdtbFFaZVlBRitDZUNnK2NnPT0iLCJ1dSI6Img3L3Nwdms1U3FPdjNJNlFwVzZvT2c9PSIsImlhdCI6MTc1MDE5MDg2OX0.2qts9HNZtJAlhxPMml7_-EBpPjrwQqnBFEWR8fdspNE"),
                             this.setAppID("app-b82ee255-d1c4-4c6e-bb93-f9d5cead9ed5")
                         } catch (e) {
                             console.error("Error accessing localStorage:", e)
@@ -7571,7 +7572,7 @@
                     } else if ("web" === this.env) {
                         this.initSubmodules();
                         try {
-                             this.setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJ3RnFNc1RpVlM5bWRtWEsyaFpPMWVBPT0iLCJ1dSI6InhhTXoxZFd0VC9tMFR2ZVVPck1pa3c9PSIsImlhdCI6MTc0OTkyNzIwNX0.UCzYTah8xRWbLbzThhO1oIklCOT_f4ffa8KwiDA6GKg").
+                             this.setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJnWXZ1NVdtbFFaZVlBRitDZUNnK2NnPT0iLCJ1dSI6Img3L3Nwdms1U3FPdjNJNlFwVzZvT2c9PSIsImlhdCI6MTc1MDE5MDg2OX0.2qts9HNZtJAlhxPMml7_-EBpPjrwQqnBFEWR8fdspNE"),
                             this.setAppID("app-b82ee255-d1c4-4c6e-bb93-f9d5cead9ed5")
                         } catch (e) {
                             console.error("Error accessing localStorage:", e)
