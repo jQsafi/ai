@@ -38,6 +38,27 @@ const models = [
   { id: "grok-beta", name: "grok-beta" },
 ];
 
+const apps = [
+  [
+    "Learning Coach",
+    "🎓",
+    "Act as a helpful coach for learners on any topic they wish to explore. Guide the learner through a step-by-step learning process, ensuring comprehension at each stage. Provide opportunities for self-assessment through short quizzes. Offer adaptive learning by revisiting topics with simpler explanations and examples if needed. Conclude the learning session with a personalized 'Notebook' for the learner.",
+    "I want to learn about something. Can you help me?"
+  ],
+  [
+    "Price Finder",
+    "💰",
+    "Assist users in finding the best online prices for a product they wish to purchase. Conduct a thorough search to identify online stores offering the product in the specified currency (BDT). Present the search results in ascending order based on price. Provide direct links to the online stores and their corresponding prices.",
+    "I am going to buy a new product. Can you help me find the best price?"
+  ],
+  [
+    "Bangla Dictionary",
+    "📖",
+    "Act as a Bengali dictionary. Provide meanings, origins, usage, synonyms, antonyms, and examples for words. Explain in clear and simple language. If a word is unknown, politely inform the user. Maintain a friendly and respectful tone.",
+    "I want to know the meaning of a word in Bengali. Can you help me?"
+  ],
+];
+
 let selectedModel = models[0].id; // Default model
 let isProcessing = false;
 let thinkingIndicatorElement = null;
@@ -254,10 +275,10 @@ function addMessage(sender, messageContent) {
 
     const messageObject = { role: sender, content: messageContent };
 
-    if (sender === 'user') {
+    if (sender === 'user' || sender === 'assistant') {
         currentSession.messages.push(messageObject);
         // Update title if it's the first user message of a new chat
-        if (currentSession.messages.filter(m => m.role === 'user').length === 1 && currentSession.title.startsWith("New Chat")) {
+        if (sender === 'user' && currentSession.messages.filter(m => m.role === 'user').length === 1 && currentSession.title.startsWith("New Chat")) {
             // Parse user's Markdown to HTML, then convert to plain text for the title
             const plainText = htmlToPlainText(marked.parse(messageContent));
             const words = plainText.split(/\s+/).filter(Boolean); // Split into words and remove empty strings
@@ -267,29 +288,30 @@ function addMessage(sender, messageContent) {
             }
             currentSession.title = newTitle || `Chat ${new Date(currentSession.id).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
         }
-        displayMessage(sender, messageContent); // Display user's message
-        showThinkingIndicator(); // Show thinking indicator
-        messageInput.disabled = true;
-        sendButton.disabled = true;
+        displayMessage(sender, messageContent); // Display user's or assistant's message
+        if (sender === 'user') {
+            showThinkingIndicator(); // Show thinking indicator
+            messageInput.disabled = true;
+            sendButton.disabled = true;
 
-        puter.ai.chat(currentSession.messages, { model: selectedModel }).then(response => {
-            hideThinkingIndicator(); // Hide indicator
-            messageInput.disabled = false;
-            // sendButton.disabled = false; // updateSendButtonVisibility will handle this
-            addMessage('assistant', response.message.content);
-            updateSendButtonVisibility(); // Re-evaluate based on (now empty) input
-        }).catch(error => {
-            hideThinkingIndicator(); // Hide indicator on error too
-            messageInput.disabled = false;
-            // sendButton.disabled = false; // updateSendButtonVisibility will handle this
-            console.error("AI response error:", error);
-            addMessage('assistant', "Sorry, I encountered an error. Please try again.");
-            updateSendButtonVisibility(); // Re-evaluate
-        });
-    } else { // Assistant message
-        currentSession.messages.push(messageObject);
-        displayMessage(sender, messageContent);
-        isProcessing = false; // Processing ends after assistant message is added and displayed
+            puter.ai.chat(currentSession.messages, { model: selectedModel }).then(response => {
+                hideThinkingIndicator(); // Hide indicator
+                messageInput.disabled = false;
+                // sendButton.disabled = false; // updateSendButtonVisibility will handle this
+                addMessage('assistant', response.message.content);
+                updateSendButtonVisibility(); // Re-evaluate based on (now empty) input
+            }).catch(error => {
+                hideThinkingIndicator(); // Hide indicator on error too
+                messageInput.disabled = false;
+                // sendButton.disabled = false; // updateSendButtonVisibility will handle this
+                console.error("AI response error:", error);
+                addMessage('assistant', "Sorry, I encountered an error. Please try again.");
+                updateSendButtonVisibility(); // Re-evaluate
+            });
+        }
+    } else if (sender === 'system') {
+        // Do not save or render system messages in chat history
+        // But still send to AI as context (handled in startChatWithAppPrompt)
     }
 
     saveChatHistoryToStorage();
@@ -443,6 +465,75 @@ function selectModel(modelItem) {
         tooltip.remove();
     }, 2000);
 }
+
+function renderAppsList() {
+    const appsListElement = document.getElementById('apps-list');
+    if (!appsListElement) return;
+
+    appsListElement.innerHTML = ''; // Clear existing items
+
+    apps.forEach((app) => {
+        const li = document.createElement('li');
+        li.classList.add('flex', 'items-center', 'gap-2', 'p-2', 'text-gray-700', 'rounded', 'cursor-pointer', 'hover:bg-gray-200', 'select-none');
+
+        // Icon element as emoji span
+        const iconSpan = document.createElement('span');
+        iconSpan.textContent = app[1]; // Emoji icon
+        iconSpan.classList.add('text-xl');
+
+        // App name element
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = app[0];
+        nameSpan.classList.add('font-medium');
+
+        li.appendChild(iconSpan);
+        li.appendChild(nameSpan);
+
+        // Optional: Add click event or other interactions here
+
+
+        appsListElement.appendChild(li);
+    });
+
+    // Add click event listener to start new chat with app prompt as system message
+    appsListElement.querySelectorAll('li').forEach((li, index) => {
+        li.addEventListener('click', () => {
+            startChatWithAppPrompt(index);
+        });
+    });
+}
+
+function startChatWithAppPrompt(appIndex) {
+    const app = apps[appIndex];
+    if (!app) return;
+
+    chatMessages.innerHTML = ''; // Clear chat display
+    currentChatId = Date.now();
+    const newTitle = app[0];
+    const newSession = {
+        id: currentChatId,
+        title: newTitle,
+        messages: [
+            { role: 'user', content: app[3] }
+        ]
+    };
+    chatHistory.unshift(newSession); // Add to the beginning of history
+    saveChatHistoryToStorage();
+    renderChatHistorySidebar();
+    messageInput.value = ''; // Clear input field
+    messageInput.focus();
+    updateSendButtonVisibility();
+
+    // Automatically send the system message (app prompt) but do not save it in history
+    addMessage('system', app[2]);
+    // Automatically send the user message (question)
+    addMessage('user', app[3]);
+}
+
+// Call renderAppsList on page load
+document.addEventListener('DOMContentLoaded', () => {
+    renderAppsList();
+});
 
 generateModelSelectionList();
 

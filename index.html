@@ -12,29 +12,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Chat with a variety of advanced AI models. Explore different AI capabilities with Chusy, powered by Puter.js.">
-    <meta name="keywords" content="AI, Chat, Artificial Intelligence, LLM, GPT, Claude, Gemini, Puter.js, Shafayat Hossain, Chusy">
+    <meta name="description" content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain.">
+    <meta name="keywords" content="AiTomo, Chat, AI, Artificial Intelligence, Smarter Chat, Collaborative Chat, Shafayat Hossain">
     <meta name="author" content="Shafayat Hossain" />
-    <link rel="canonical" href="https://jqsafi.github.io/" />
+    <link rel="canonical" href="https://jqsafi.github.io/ai-chat/" />
 
     <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
-    <meta property="og:title" content="Chat with any model | Shafayat Hossain" />
-    <meta property="og:description" content="Chat with a variety of advanced AI models. Explore different AI capabilities with Chusy, powered by Puter.js." />
+    <meta property="og:title" content="AiTomo-Chat Smarter, Chat Together | Shafayat Hossain" />
+    <meta property="og:description" content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://jqsafi.github.io/" />
+    <meta property="og:url" content="https://jqsafi.github.io/ai-chat/" />
     <meta property="og:image" content="https://jqsafi.github.io/og-image.jpg" />
-    <meta property="og:site_name" content="Chusy AI Chat" />
+    <meta property="og:site_name" content="AiTomo" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Chat with any model | Shafayat Hossain" />
-    <meta name="twitter:description" content="Chat with a variety of advanced AI models. Explore different AI capabilities with Chusy, powered by Puter.js." />
+    <meta name="twitter:title" content="AiTomo-Chat Smarter, Chat Together | Shafayat Hossain" />
+    <meta name="twitter:description" content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain." />
     <meta name="twitter:image" content="https://jqsafi.github.io/twitter-card-image.jpg" />
     <!-- If you have a Twitter username, you can add it like this: -->
     <!-- <meta name="twitter:site" content="@yourusername"> -->
     <!-- <meta name="twitter:creator" content="@yourusername"> -->
 
-    <title>Chat with any model | Shafayat Hossain</title>
+    <title>AiTomo-Chat Smarter, Chat Together | Shafayat Hossain</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,158 +54,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
     <link rel="icon" href="s.ico" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-      /* Reset styles for elements within message content to prevent global style bleed */
-      /* Ensure box-sizing is border-box for all elements involved in message rendering */
-      #chat-messages,
-      #chat-messages *, /* Covers dynamically added message bubbles */
-      .message-content,
-      .message-content * {
-        box-sizing: border-box;
-      }
-
-      #chat-messages {
-        padding-left: 3rem; /* Added left padding for free space */
-      }
-
-      .message-content > * {
-        all: revert; /* Reset direct children to user-agent styles */
-        box-sizing: border-box; /* IMPORTANT: Re-apply box-sizing after 'all: revert' */
-        max-width: 100%; /* Added: constrain width */
-        overflow-wrap: break-word; /* Added: break long words */
-        word-break: break-word; /* Added: break long words */
-      }
-
-      /* Re-apply sensible base styles for common Markdown elements within messages */
-      .message-content h1,
-      .message-content h2,
-      .message-content h3,
-      .message-content h4,
-      .message-content h5,
-      .message-content h6 {
-        font-size: revert;
-        font-weight: revert;
-        margin-top: revert;
-        margin-bottom: revert;
-        line-height: 1; /* Tighter line-height for headings */
-        color: inherit; /* Inherit text color from the message bubble */
-        font-size: revert; /* Allow headings to have their natural relative sizes */
-        /* Ensure headings don't break out */
-        max-width: 100%;
-        overflow-wrap: break-word;
-        word-break: break-word; /* Added */
-      }
-      .message-content p {
-        margin-top: 0;    /* Explicitly remove top margin */
-        margin-bottom: 0.2em; /* Small space between paragraphs */
-        line-height: 1;   /* Very tight line-height for paragraphs */
-        color: inherit;
-        font-size: 0.9rem; /* Smaller font size for paragraphs */
-        /* Ensure paragraphs don't break out */
-        max-width: 100%;
-        overflow-wrap: break-word;
-        word-break: break-word; /* Added */
-      }
-      .message-content ul,
-      .message-content ol {
-        list-style: revert;
-        margin-top: 0;    /* Explicitly remove top margin */
-        margin-bottom: 0.2em; /* Small space after lists */
-        padding-left: 1.2em; /* Reduced left padding for lists */
-        color: inherit;
-        font-size: 0.9rem; /* Smaller font size for lists */
-        /* Ensure lists don't break out */
-        max-width: 100%;
-        word-break: break-word; /* Added */
-      }
-      .message-content li {
-        margin-top: 0;
-        margin-bottom: 0.1em; /* Very small space between list items */
-        padding-left: 0.2em;  /* Small padding for list item marker */
-        line-height: 1;   /* Very tight line-height for list items */
-        color: inherit;
-        font-size: inherit; /* Inherit from ul/ol or p if nested */
-        /* Ensure list items don't break out */
-        overflow-wrap: break-word;
-        word-break: break-word; /* Added */
-      }
-      .message-content a {
-        color: #3b82f6; /* Tailwind's blue-500, or choose another link color */
-        text-decoration: underline;
-      }
-      .message-content a:hover {
-        text-decoration: none;
-      }
-      .message-content strong, .message-content b { font-weight: bold; color: inherit; }
-      .message-content em, .message-content i { font-style: italic; color: inherit; }
-
-      /* Ensure the .message-content div itself is a block and constrained */
-      .message-content {
-        display: block; /* Explicitly make it a block container */
-        width: 100%;    /* Occupy full width of its parent (the message bubble) */
-        overflow: hidden; /* Add this to clip any children that try to overflow */
-        overflow-wrap: break-word; /* General safety for text overflow */
-        word-break: break-word; /* Added */
-      }
-
-      .message-content pre {
-        display: block;
-        background-color: #f3f4f6; /* Tailwind gray-100 */
-        border: 1px solid #e5e7eb; /* Tailwind gray-200 */
-        border-radius: 0.25rem;
-        padding: 0.75rem;
-        overflow-x: auto;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.875em;
-        line-height: 1.4; /* Slightly tighter line-height for code blocks */
-        color: #1f2937; /* Tailwind gray-800 */
-        white-space: pre; /* Respects explicit newlines and spaces, enables horizontal scrolling */
-        max-width: 100%;  /* Crucial: Constrain to .message-content's width */
-        min-width: 0;     /* Helps in some complex layout scenarios to allow shrinking */
-        word-break: break-word; /* Added */
-      }
-      .message-content code:not(pre > code) { /* Inline code */
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.875em;
-        color: #db2777; /* Tailwind pink-600 */
-        background-color: #f9fafb; /* Tailwind gray-50 */
-        padding: 0.125em 0.25em;
-        border-radius: 0.125rem;
-        overflow-wrap: break-word;
-        word-break: break-word; /* Changed from break-all to break-word */
-      }
-      .message-content pre > code {
-        display: block; /* Treat the code element itself as a block within pre.
-                           This helps ensure consistent layout and that its content
-                           (which inherits white-space: pre) correctly triggers
-                           the parent pre's overflow mechanism. It also aligns
-                           with common syntax highlighter practices. */
-        /* white-space: pre; /* Should inherit from parent <pre> */
-        font-family: inherit; font-size: inherit; color: inherit; background-color: transparent; padding: 0; border-radius: 0;
-        /* The code content itself should not wrap lines; the parent 'pre' handles scrolling. */
-      }
-      .message-content blockquote {
-        margin: 0 0 0.8rem; padding: 0.4rem 0.8rem; border-left: 0.25rem solid #d1d5db;
-        color: #4b5563; font-size: 0.9rem; line-height: 1.5;
-        max-width: 100%; overflow-wrap: break-word;
-        word-break: break-word; /* Added */
-      }
-      .message-content table {
-        border-collapse: collapse; width: 100%; margin-bottom: 0.8rem;
-        color: inherit; font-size: 0.85rem;
-        table-layout: fixed; /* Helps prevent table from expanding parent */
-        max-width: 100%;
-        word-break: break-word; /* Added */
-      }
-      .message-content th, .message-content td {
-        border: 1px solid #e5e7eb; padding: 0.4rem; text-align: left; line-height: 1.4;
-        overflow-wrap: break-word; word-break: break-word; /* for content within table cells */
-      }
-      .message-content th { font-weight: bold; background-color: #f9fafb; /* Tailwind gray-50 */  }
-      .message-content hr { margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid #e5e7eb; /* Tailwind gray-200 */ }
-      .message-content img { max-width: 100%; height: auto; display: block; border-radius: 0.25rem;
-      }
-    </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -236,19 +84,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </button>
       </div>
 
-      <nav class="flex-grow overflow-y-auto mb-4">
-        <ul class="list-none">
-          <li id="new-chat-btn" class="flex items-center gap-2 p-2 text-gray-700 rounded cursor-pointer hover:bg-gray-200 select-none">
-            <span class="material-icons">add</span> New chat
-          </li>
-          <!-- Chat history list will be populated here -->
-          <ul id="chat-history-list" class="list-none mb-4">
+      <nav class="flex-grow overflow-y-auto mb-4 flex flex-col">
+        <section class="mb-6">
+          <h2 class="font-semibold text-gray-700 mb-2 select-none px-2">History</h2>
+          <ul class="list-none">
+            <li id="new-chat-btn" class="flex items-center gap-2 p-2 text-gray-700 rounded cursor-pointer hover:bg-gray-200 select-none">
+              <span class="material-icons">add</span> New chat
+            </li>
+          </ul>
+          <ul id="chat-history-list" class="list-none max-h-48 overflow-y-auto">
             <!-- Chat history items will be populated here -->
           </ul>
-          <li class="mt-auto p-2 text-gray-500 text-sm select-none flex items-center gap-2 cursor-pointer hover:bg-gray-200 rounded">
-            <!-- <span class="material-icons">settings</span> Settings &amp; help -->
-          </li>
-        </ul>
+        </section>
+        <section class="mt-auto pt-4 border-t border-gray-300">
+          <h2 class="font-semibold text-gray-700 mb-2 select-none px-2">App</h2>
+          <ul id="apps-list" class="list-none max-h-48 overflow-y-auto">
+            <!-- Apps list items will be populated here -->
+          </ul>
+        </section>
       </nav>
       <!-- Removed model list from sidebar as per user request -->
       <!--
@@ -293,7 +146,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           tabindex="0"
           autocomplete="off"
           rows="1"
-          class="w-full rounded-3xl border border-gray-300 bg-white px-6 py-4 pr-16 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none overflow-y-auto"
+          class="w-full rounded-2xl border border-gray-300 bg-white px-6 py-4 pr-16 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none overflow-y-auto"
         ></textarea>
         <button id="send-button"
           aria-label="Send message"
@@ -309,7 +162,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </main>
   </div>
-
   <script src="puter.js"></script>
   <script src="script.js"></script>
 </body>
