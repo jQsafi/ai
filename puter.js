@@ -1,7 +1,7 @@
 // Copyright 2024-present Puter Technologies Inc. All rights reserved.
 // Generated on 2025-05-07 03:06
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJnWXZ1NVdtbFFaZVlBRitDZUNnK2NnPT0iLCJ1dSI6Img3L3Nwdms1U3FPdjNJNlFwVzZvT2c9PSIsImlhdCI6MTc1MDE5MDg2OX0.2qts9HNZtJAlhxPMml7_-EBpPjrwQqnBFEWR8fdspNE
- window.JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJFcllBL0FVWlNlU0kxVk1PeHhudmRRPT0iLCJ1dSI6IjBsV2xSNlhvVFYrQ2xGZC9OY3p4c1E9PSIsImlhdCI6MTc1MDE2NTc1NX0.U9LGuvsCQpljXyZ6D_-bGvw42Q0bI3lxLLLV00Rrdg";    
+ window.JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoicyIsInYiOiIwLjAuMCIsInUiOiJFcllBL0FVWlNlU0kxVk1PeHhudmRRPT0iLCJ1dSI6IjBsV2xSNlhvVFYrQ2xGZC9OY3p4c1E9PSIsImlhdCI6MTc1MDE2NTc1NX0.U9LGuvsCQpljXyZ6D_-bGvw42Q0bI3lxLLLV00RrdgU";    
 ( () => {
     var e = {
         294: (e, t, s) => {
