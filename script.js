@@ -107,6 +107,7 @@ function hideThinkingIndicator() {
     if (thinkingIndicatorElement) {
         thinkingIndicatorElement.remove();
         thinkingIndicatorElement = null;
+      isProcessing=false;
     }
 }
 
@@ -319,9 +320,7 @@ function addMessage(sender, messageContent) {
 }
 
 sendButton.addEventListener('click', () => {
-    if (isProcessing) return; // Block if processing
-    // User input is passed directly to addMessage. // displayMessage will handle escaping it.
-    // displayMessage will handle escaping it.
+    if (isProcessing) return;
     const message = messageInput.value.trim();
     if (message !== '') {
         addMessage('user', message);
