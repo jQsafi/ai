@@ -313,10 +313,14 @@ function addMessage(sender, messageContent) {
     } else if (sender === 'system') {
         // Do not save or render system messages in chat history
         // But still send to AI as context (handled in startChatWithAppPrompt)
+       isProcessing = false; // Always reset processing flag
+        messageInput.disabled = false; // Re-enable input
     }
 
     saveChatHistoryToStorage();
     renderChatHistorySidebar();
+   isProcessing = false; // Always reset processing flag
+        messageInput.disabled = false; 
 }
 
 sendButton.addEventListener('click', () => {
