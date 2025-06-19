@@ -1,11 +1,9 @@
-const puter = window.puter;
-
 const chatMessages = document.getElementById('chat-messages');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
 const chatHistoryListElement = document.getElementById('chat-history-list');
 const newChatButton = document.getElementById('new-chat-btn');
-
+var isProcessing= false; // Flag to indicate if a response is being processed
 let chatHistory = [];
 let currentChatId = null;
 
@@ -59,8 +57,7 @@ const apps = [
   ],
 ];
 
-let selectedModel = models[0].id; // Default model
-let isProcessing = false;
+let selectedModel = localStorage.getItem('lastSelectedModel') || models[0].id; // Default model or from localStorage
 let thinkingIndicatorElement = null;
 
 // Function to show the "Thinking..." indicator
@@ -183,6 +180,7 @@ function loadChatSession(chatId) {
         messageInput.value = ''; // Clear input field
         messageInput.focus();
         updateSendButtonVisibility();
+        isProcessing=false;
     }
 }
 
@@ -221,6 +219,7 @@ function copyToClipboard(text, buttonElement) {
 
 // Separated function to display a message in the chat UI
 function displayMessage(sender, content) {
+    if(sender== 'system') return;
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', 'w-[90%]', 'px-4', 'py-3', 'rounded-2xl', 'text-gray-900', 'whitespace-pre-wrap', 'break-words');
     
@@ -262,7 +261,11 @@ function displayMessage(sender, content) {
 }
 
 function addMessage(sender, messageContent) {
-    isProcessing = true;
+    console.log('addMessage called with sender:', sender, 'isProcessing:', isProcessing);
+    if (isProcessing && sender === 'user') {
+        console.log('addMessage: currently processing, ignoring new user message');
+        return;
+    }
 
     let currentSession = chatHistory.find(s => s.id === currentChatId);
     // If no current session, startNewChat should have been called.
@@ -291,39 +294,50 @@ function addMessage(sender, messageContent) {
         }
         displayMessage(sender, messageContent); // Display user's or assistant's message
         if (sender === 'user') {
+            console.log('addMessage: user message received, setting isProcessing true');
             showThinkingIndicator(); // Show thinking indicator
             messageInput.disabled = true;
             sendButton.disabled = true;
+            isProcessing = true;
 
             puter.ai.chat(currentSession.messages, { model: selectedModel }).then(response => {
+                console.log('addMessage: AI response received, setting isProcessing false');
                 hideThinkingIndicator(); // Hide indicator
                 messageInput.disabled = false;
-                // sendButton.disabled = false; // updateSendButtonVisibility will handle this
+                sendButton.disabled = false;
+                isProcessing = false;
+
                 addMessage('assistant', response.message.content);
+                 isProcessing = false;
+                   messageInput.disabled = false;
+                sendButton.disabled = false;
                 updateSendButtonVisibility(); // Re-evaluate based on (now empty) input
             }).catch(error => {
+                console.log('addMessage: AI response error, setting isProcessing false');
                 hideThinkingIndicator(); // Hide indicator on error too
                 messageInput.disabled = false;
-                // sendButton.disabled = false; // updateSendButtonVisibility will handle this
+                sendButton.disabled = false;
+                isProcessing = false;
                 console.error("AI response error:", error);
-                addMessage('assistant', "Sorry, I encountered an error. Please try again.");
+               // addMessage('assistant', "Sorry, I encountered an error. Please try again.");
                 updateSendButtonVisibility(); // Re-evaluate
             });
         }
     } else if (sender === 'system') {
         // Do not save or render system messages in chat history
         // But still send to AI as context (handled in startChatWithAppPrompt)
-       isProcessing = false; // Always reset processing flag
+         currentSession.messages.push(messageObject);
+        console.log('addMessage: system message received, setting isProcessing false');
+        isProcessing = false; // Always reset processing flag
         messageInput.disabled = false; // Re-enable input
     }
 
     saveChatHistoryToStorage();
     renderChatHistorySidebar();
-   isProcessing = false; // Always reset processing flag
-        messageInput.disabled = false; 
 }
 
 sendButton.addEventListener('click', () => {
+    console.log('sendButton clicked, isProcessing:', isProcessing);
     if (isProcessing) return;
     const message = messageInput.value.trim();
     if (message !== '') {
@@ -351,7 +365,11 @@ function updateSendButtonVisibility() {
 updateSendButtonVisibility();
 
 messageInput.addEventListener('keydown', function(event) { // Use 'function' for 'this' to refer to messageInput
-    if (event.key === 'Enter' && !isProcessing) {
+    if (event.key === 'Enter') {
+         if (this.value.trim() !== '') { // Ensure message is not just whitespace
+                // sendButton.click();
+                addMessage('user', this.value.trim()); // Add user message to history
+            }
         if (event.ctrlKey || event.metaKey) {
             // Ctrl+Enter or Cmd+Enter: insert newline
             event.preventDefault(); // Prevent any default action
@@ -459,14 +477,6 @@ function selectModel(modelItem) {
         modelSelectionPanel.classList.add('hidden');
     }
 
-    // Show tooltip
-    const tooltip = document.createElement('div');
-    tooltip.className = 'model-tooltip';
-    tooltip.innerText = `Model changed to ${selectedModel}`;
-    modelSelectionList.parentElement.appendChild(tooltip);
-    setTimeout(() => {
-        tooltip.remove();
-    }, 2000);
 }
 
 function renderAppsList() {
@@ -531,6 +541,7 @@ function startChatWithAppPrompt(appIndex) {
     addMessage('system', app[2]);
     // Automatically send the user message (question)
     addMessage('user', app[3]);
+    isProcessing=false;
 }
 
 // Call renderAppsList on page load
@@ -627,5 +638,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    // --- Mobile sidebar functionality END ---
 });
