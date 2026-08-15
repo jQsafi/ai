@@ -1,82 +1,650 @@
-gsap.registerPlugin(SplitText);
-
-const puter = window.puter;
-const promptMessage = '';
-
-const messages = [];
-
 const chatMessages = document.getElementById('chat-messages');
 const messageInput = document.getElementById('message-input');
 const sendButton = document.getElementById('send-button');
-const headerTitle = document.querySelector('.chat-header h1');
-const modelDisplay = document.getElementById('model-display');
-const modelSelectBtn = document.getElementById('model-select-btn');
-const modelMenu = document.getElementById('model-menu');
+const chatHistoryListElement = document.getElementById('chat-history-list');
+const newChatButton = document.getElementById('new-chat-btn');
+var isProcessing = false; // Flag to indicate if a response is being processed
+let chatHistory = [];
+let currentChatId = null;
 
+const models = [
+    { id: "gpt-4o-mini", name: "gpt-4o-mini (default)" },
+    { id: "gpt-4o", name: "gpt-4o" },
+    { id: "o1", name: "o1" },
+    { id: "o1-mini", name: "o1-mini" },
+    { id: "o1-pro", name: "o1-pro" },
+    { id: "o3", name: "o3" },
+    { id: "o3-mini", name: "o3-mini" },
+    { id: "o4-mini", name: "o4-mini" },
+    { id: "gpt-4.1", name: "gpt-4.1" },
+    { id: "gpt-4.1-mini", name: "gpt-4.1-mini" },
+    { id: "gpt-4.1-nano", name: "gpt-4.1-nano" },
+    { id: "gpt-4.5-preview", name: "gpt-4.5-preview" },
+    { id: "claude-3-7-sonnet", name: "claude-3-7-sonnet" },
+    { id: "claude-3-5-sonnet", name: "claude-3-5-sonnet" },
+    { id: "deepseek-chat", name: "deepseek-chat" },
+    { id: "deepseek-reasoner", name: "deepseek-reasoner" },
+    { id: "gemini-2.0-flash", name: "gemini-2.0-flash" },
+    { id: "gemini-1.5-flash", name: "gemini-1.5-flash" },
+    { id: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo", name: "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo" },
+    { id: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo", name: "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo" },
+    { id: "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo", name: "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo" },
+    { id: "mistral-large-latest", name: "mistral-large-latest" },
+    { id: "pixtral-large-latest", name: "pixtral-large-latest" },
+    { id: "codestral-latest", name: "codestral-latest" },
+    { id: "google/gemma-2-27b-it", name: "google/gemma-2-27b-it" },
+    { id: "grok-beta", name: "grok-beta" },
+];
 
+const apps = [
+    [
+        "Learning Coach",
+        "🎓",
+        "Act as a helpful coach for learners on any topic they wish to explore. Guide the learner through a step-by-step learning process, ensuring comprehension at each stage. Provide opportunities for self-assessment through short quizzes. Offer adaptive learning by revisiting topics with simpler explanations and examples if needed. Conclude the learning session with a personalized 'Notebook' for the learner.",
+        "I want to learn about something. Can you help me?"
+    ],
+    [
+        "Price Finder",
+        "💰",
+        "Assist users in finding the best online prices for a product they wish to purchase. Conduct a thorough search to identify online stores offering the product in the specified currency (BDT). Present the search results in ascending order based on price. Provide direct links to the online stores and their corresponding prices.",
+        "I am going to buy a new product. Can you help me find the best price?"
+    ],
+    [
+        "Bangla Dictionary",
+        "📖",
+        "Act as a Bengali dictionary. Provide meanings, origins, usage, synonyms, antonyms, and examples for words. Explain in clear and simple language. If a word is unknown, politely inform the user. Maintain a friendly and respectful tone.",
+        "I want to know the meaning of a word in Bengali. Can you help me?"
+    ],
+    [
+        "Executive Assistant",
+        "💼",
+        "You are my dedicated Personal Executive & Technical Assistant. Your role is to represent my background, answer inquiries, generate tailored cover letters, and provide detailed technical and professional context strictly using the profile provided below.\n\n--- Operating Guidelines ---\n1. Source of Truth: Base all answers strictly on the provided profile text. Do not invent achievements, roles, metrics, or technologies not listed.\n2. Tone & Style: Maintain a professional, articulate, technically sharp, and confident tone.\n3. Accuracy: When asked about metrics, tools, contact channels, or employment dates, provide exact facts from the text. If information is not present, state clearly that it is not covered in my current record.\n4. Application: Use this context to draft resumes, executive summaries, technical proposals, cover letters, outreach messages, or to answer direct interview and client questions on my behalf.\n\n--- Profile & Contact Details ---\n- Full Name: Shafayat Hossain\n- Current Roles: Senior Software Engineer | Technical Project Manager | Automation & Platforms Specialist\n- Location: Dhaka, Mirpur, Bangladesh\n- Email: shafayat@engineer.com\n- Phone / WhatsApp: +880 1616-332313\n- Portfolio / Website: https://jqsafi.github.io/\n- LinkedIn: https://linkedin.com/in/jqsafi\n- GitHub: https://github.com/jqsafi\n\n--- Core Competencies ---\n- Languages & Frameworks: Python (incl. MicroPython, C Python), Rust, Go, Node.js, TypeScript, PHP, .NET, JavaScript, React, Next.js, Django, Flask, FastAPI, Laravel, Spring Boot, Vue.js\n- DevOps, Cloud & DBs: Kubernetes, Docker, Terraform, Pulumi, GitHub Actions, Jenkins, ArgoCD, GitLab CI, AWS, Azure, GCP, Serverless, PostgreSQL, MySQL, MongoDB, Redis, TimescaleDB, CockroachDB, Oracle\n- AI & Automation: Ollama, LM Studio, Local LLMs, Chrome Built-in AI, PuterAI, OpenWebUI, Groq, Selenium, Pytest, IoT/Hardware integration\n- Management: Agile (Scrum), Kanban, SAFe, ERP integration, OKRs, Stakeholder Communication\n\n--- Career History & Highlights ---\n- Senior Software Engineer @ Arogga Ltd. (2020 – Present): Automated healthcare/e-commerce workflows (reduced manual overhead by 65%), built 15+ microservices with 99.9% uptime for 500K+ daily requests, integrated IoT inventory tracking, and improved server latency by 20–30%.\n- Software Engineer & Project Coordinator @ Enormous Infonet (2018 – 2020): Automated processing for 10M+ records (cutting reporting time by 70%), built CI/CD pipelines dropping release times from 4 hours to 30 minutes, and engineered enterprise portals.\n- Software Engineer @ DoodleI Inc. (2016 – 2018): Built scalable web applications, custom CMS tooling, and high-traffic integrations.\n- Technical Project Manager @ Zaman IT (2014 – 2016): Led automation systems processing 100K+ daily records, directed OMR verification systems, and lifted test coverage to 85%.\n- Software Engineer @ The Databiz Software Ltd. (2011 – 2014): Automated migrations across 30+ platforms and developed custom plugins.\n- Founder & Trainer @ Stay Home Programs: Built and delivered remote software engineering and automation training.\n- Freelance Consultant (2014 – Present): Delivered backend systems and automation solutions for clients across the US, Canada, and Malaysia.\n\n--- Education, Certifications & Hardware Innovations ---\n- B.Sc. in Computer Science & Engineering: Uttara University, Dhaka (2012)\n- Project Management Certification: Rainbow IT & Training Institute (2013)\n- Web Development with PHP & Laravel: Ostad (2021)\n- Hardware/IoT Systems: Built a fingerprint attendance device integrated with school management software and an automated package-sorting warehouse system.",
+        "Hello! I need assistance with a professional task regarding Shafayat Hossain's profile."
+    ],
+];
 
-let currentGradientIndex = 0;
-const headerElement = document.querySelector('.chat-header');
-const sendButtonElement = document.querySelectorAll('button');
+let selectedModel = localStorage.getItem('lastSelectedModel') || models[0].id; // Default model or from localStorage
+let thinkingIndicatorElement = null;
 
-);
+// Function to show the "Thinking..." indicator
+function showThinkingIndicator() {
+    if (thinkingIndicatorElement) return; // Already showing
+
+    thinkingIndicatorElement = document.createElement('div');
+    thinkingIndicatorElement.id = 'thinking-indicator';
+    thinkingIndicatorElement.classList.add(
+        'message', 'w-[90%]', 'px-4', 'py-3', 'rounded-2xl', 'text-gray-900',
+        'bg-purple-100', 'mr-auto', 'rounded-tl-none', 'flex', 'items-start', 'gap-3'
+    );
+
+    const avatar = document.createElement('div');
+    avatar.classList.add(
+        'flex', 'items-center', 'justify-center', 'h-8', 'w-8', 'rounded-full',
+        'bg-indigo-600', 'text-white', 'text-sm', 'font-semibold'
+    );
+    avatar.textContent = 'G';
+    thinkingIndicatorElement.appendChild(avatar);
+
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add('flex', 'items-baseline'); // Align text and dots
+
+    const thinkingTextSpan = document.createElement('span');
+    thinkingTextSpan.classList.add('italic');
+    thinkingTextSpan.textContent = 'Thinking';
+    contentContainer.appendChild(thinkingTextSpan);
+
+    for (let i = 0; i < 3; i++) {
+        const dot = document.createElement('span');
+        dot.textContent = '.';
+        dot.classList.add('animate-pulse', 'ml-px'); // Tailwind's pulse animation and minimal margin
+        dot.style.animationDelay = `${i * 250}ms`; // Staggered animation for dots
+        contentContainer.appendChild(dot);
+    }
+    thinkingIndicatorElement.appendChild(contentContainer);
+    chatMessages.appendChild(thinkingIndicatorElement);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+// Function to hide the "Thinking..." indicator
+function hideThinkingIndicator() {
+    if (thinkingIndicatorElement) {
+        thinkingIndicatorElement.remove();
+        thinkingIndicatorElement = null;
+        isProcessing = false;
+    }
+}
 
+// Function to convert HTML (with entities) to plain text
+function htmlToPlainText(htmlString) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlString; // Decodes entities and parses HTML
+    return tempDiv.textContent || tempDiv.innerText || ""; // Gets plain text
+}
 
+// Function to load chat history from localStorage
+function loadChatHistoryFromStorage() {
+    const storedHistory = localStorage.getItem('chatHistory');
+    if (storedHistory) {
+        chatHistory = JSON.parse(storedHistory);
+    }
+    renderChatHistorySidebar();
+}
 
-// Run animation after fonts are loaded or after a timeout
+// Function to save chat history to localStorage
+function saveChatHistoryToStorage() {
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+}
 
-
-
-let selectedModel = 'gpt-4o-mini'; // Default model
-let isProcessing = false;
-
-function addMessage(sender, message) {
-            if(sender === 'user') {
-                messages.push({ content: message, role: 'user' });
-                puter.ai.chat(messages,{model:selectedModel}).then(response => {
-                    addMessage('assistant', response.message);
-                }).catch(error => {
-                    console.error("AI response error:", error);
-                });
-
-            } else {
-                messages.push(message);
-                message=message.content;
-            }
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'user' ? 'sent-message' : 'received-message');
-            messageElement.innerHTML = marked.parse(message)
-            // messageElement.innerHTML = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            // messageInput.focus();
-    isProcessing=false;
+// Function to render chat history in the sidebar
+function renderChatHistorySidebar() {
+    if (!chatHistoryListElement) return;
+    chatHistoryListElement.innerHTML = ''; // Clear existing items
+    chatHistory.forEach(session => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('p-2', 'text-gray-700', 'rounded', 'cursor-pointer', 'hover:bg-gray-200', 'select-none', 'truncate');
+        listItem.textContent = session.title || `Chat ${new Date(session.id).toLocaleString()}`;
+        listItem.setAttribute('data-chat-id', String(session.id)); // Ensure it's a string for comparison
+        if (session.id === currentChatId) {
+            listItem.classList.add('bg-gray-300', 'font-semibold'); // Active state
         }
+        listItem.addEventListener('click', () => {
+            loadChatSession(session.id);
+        });
+        chatHistoryListElement.appendChild(listItem);
+    });
+}
+
+// Function to start a new chat session
+function startNewChat() {
+    chatMessages.innerHTML = ''; // Clear chat display
+    currentChatId = Date.now();
+    const newTitle = `New Chat ${new Date(currentChatId).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    const newSession = {
+        id: currentChatId,
+        title: newTitle,
+        messages: []
+    };
+    chatHistory.unshift(newSession); // Add to the beginning of history
+    saveChatHistoryToStorage();
+    renderChatHistorySidebar();
+    messageInput.value = ''; // Clear input field
+    messageInput.focus();
+    updateSendButtonVisibility();
+}
+
+// Function to load a specific chat session
+function loadChatSession(chatId) {
+    const session = chatHistory.find(s => s.id === chatId);
+    if (session) {
+        currentChatId = chatId;
+        chatMessages.innerHTML = ''; // Clear chat display
+        session.messages.forEach(msg => {
+            displayMessage(msg.role, msg.content);
+        });
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        renderChatHistorySidebar(); // Re-render to update active state
+        messageInput.value = ''; // Clear input field
+        messageInput.focus();
+        updateSendButtonVisibility();
+        isProcessing = false;
+    }
+}
+
+// Helper function to copy text to clipboard and provide feedback
+function copyToClipboard(text, buttonElement) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = buttonElement.innerHTML;
+        buttonElement.innerHTML = '<span class="material-icons text-sm">done</span> Copied!';
+        // Temporarily change button style for feedback
+        const originalClasses = Array.from(buttonElement.classList);
+        buttonElement.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+        buttonElement.classList.add('bg-green-500', 'hover:bg-green-600', 'text-white');
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+            buttonElement.classList.remove('bg-green-500', 'hover:bg-green-600', 'text-white');
+            originalClasses.forEach(cls => {
+                if (!buttonElement.classList.contains(cls) && !['bg-green-500', 'hover:bg-green-600', 'text-white'].includes(cls)) {
+                    buttonElement.classList.add(cls);
+                }
+            });
+            // Ensure original hover/bg classes are restored if they were part of the initial set
+            if (!buttonElement.classList.contains('bg-gray-200')) buttonElement.classList.add('bg-gray-200');
+            if (!buttonElement.classList.contains('hover:bg-gray-300')) buttonElement.classList.add('hover:bg-gray-300');
+            if (!buttonElement.classList.contains('text-gray-700')) buttonElement.classList.add('text-gray-700');
+
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+        const originalText = buttonElement.innerHTML;
+        buttonElement.textContent = 'Error';
+        setTimeout(() => {
+            buttonElement.innerHTML = originalText;
+        }, 2000);
+    });
+}
+
+// Separated function to display a message in the chat UI
+function displayMessage(sender, content) {
+    if (sender == 'system') return;
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', 'w-[90%]', 'px-4', 'py-3', 'rounded-2xl', 'text-gray-900', 'whitespace-pre-wrap', 'break-words');
+
+    const contentElement = document.createElement('div');
+    contentElement.classList.add('message-content'); // Add a class to target message content
+    // Treat all content as Markdown and parse it to HTML for display.
+    contentElement.innerHTML = DOMPurify.sanitize(marked.parse(content));
+    // Highlight code blocks using PrismJS
+    if (window.Prism) {
+        Prism.highlightAllUnder(contentElement);
+    }
+
+    if (sender === 'user') { // User message
+        messageElement.classList.add('bg-blue-100', 'ml-auto', 'rounded-tr-none');
+        messageElement.appendChild(contentElement);
+    } else { // 'assistant'
+        messageElement.classList.add('mr-auto', 'rounded-tl-none', 'flex', 'items-start', 'gap-3');
+
+        const messageBodyContainer = document.createElement('div');
+        messageBodyContainer.classList.add('flex-grow', 'flex', 'flex-col'); // Allow content and button to stack
+        messageBodyContainer.appendChild(contentElement);
+
+        const copyMessageButton = document.createElement('button');
+        copyMessageButton.innerHTML = '<span class="material-icons text-sm leading-none">content_copy</span><span class="ml-1">Copy</span>';
+        copyMessageButton.classList.add(
+            'mt-2', 'self-end', 'px-2', 'py-1', 'text-xs', 'bg-gray-200', 'hover:bg-gray-300',
+            'text-gray-700', 'rounded', 'flex', 'items-center', 'transition-colors'
+        );
+        copyMessageButton.addEventListener('click', () => {
+            // Use innerText of the parsed content to get a plain text representation
+            copyToClipboard(contentElement.innerText, copyMessageButton);
+        });
+        messageBodyContainer.appendChild(copyMessageButton);
+
+        messageElement.appendChild(messageBodyContainer);
+    }
+    chatMessages.appendChild(messageElement);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addMessage(sender, messageContent) {
+    console.log('addMessage called with sender:', sender, 'isProcessing:', isProcessing);
+    if (isProcessing && sender === 'user') {
+        console.log('addMessage: currently processing, ignoring new user message');
+        return;
+    }
+
+    let currentSession = chatHistory.find(s => s.id === currentChatId);
+    // If no current session, startNewChat should have been called.
+    // As a fallback, if currentChatId is somehow null or session not found, create one.
+    if (!currentSession) {
+        currentChatId = Date.now();
+        const newTitle = `Chat ${new Date(currentChatId).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        currentSession = { id: currentChatId, title: newTitle, messages: [] };
+        chatHistory.unshift(currentSession);
+    }
+
+    const messageObject = { role: sender, content: messageContent };
+
+    if (sender === 'user' || sender === 'assistant') {
+        currentSession.messages.push(messageObject);
+        // Update title if it's the first user message of a new chat
+        if (sender === 'user' && currentSession.messages.filter(m => m.role === 'user').length === 1 && currentSession.title.startsWith("New Chat")) {
+            // Parse user's Markdown to HTML, then convert to plain text for the title
+            const plainText = htmlToPlainText(marked.parse(messageContent));
+            const words = plainText.split(/\s+/).filter(Boolean); // Split into words and remove empty strings
+            let newTitle = words.slice(0, 10).join(" ");
+            if (words.length > 10) {
+                newTitle += "...";
+            }
+            currentSession.title = newTitle || `Chat ${new Date(currentSession.id).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        }
+        displayMessage(sender, messageContent); // Display user's or assistant's message
+        if (sender === 'user') {
+            console.log('addMessage: user message received, setting isProcessing true');
+            showThinkingIndicator(); // Show thinking indicator
+            messageInput.disabled = true;
+            sendButton.disabled = true;
+            isProcessing = true;
+
+            puter.ai.chat(currentSession.messages, { model: selectedModel }).then(response => {
+                console.log('addMessage: AI response received, setting isProcessing false');
+                hideThinkingIndicator(); // Hide indicator
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                isProcessing = false;
+
+                addMessage('assistant', response.message.content);
+                isProcessing = false;
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                updateSendButtonVisibility(); // Re-evaluate based on (now empty) input
+            }).catch(error => {
+                console.log('addMessage: AI response error, setting isProcessing false');
+                hideThinkingIndicator(); // Hide indicator on error too
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                isProcessing = false;
+                console.error("AI response error:", error);
+                // addMessage('assistant', "Sorry, I encountered an error. Please try again.");
+                updateSendButtonVisibility(); // Re-evaluate
+            });
+        }
+    } else if (sender === 'system') {
+        // Do not save or render system messages in chat history
+        // But still send to AI as context (handled in startChatWithAppPrompt)
+        currentSession.messages.push(messageObject);
+        console.log('addMessage: system message received, setting isProcessing false');
+        isProcessing = false; // Always reset processing flag
+        messageInput.disabled = false; // Re-enable input
+    }
+
+    saveChatHistoryToStorage();
+    renderChatHistorySidebar();
+}
 
 sendButton.addEventListener('click', () => {
-    if (isProcessing) return; // Block if processing
+    console.log('sendButton clicked, isProcessing:', isProcessing);
+    if (isProcessing) return;
     const message = messageInput.value.trim();
     if (message !== '') {
         addMessage('user', message);
         messageInput.value = '';
+        updateSendButtonVisibility();
     }
 });
 
-messageInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && !isProcessing) {
-        sendButton.click();
-    }
+messageInput.addEventListener('input', () => {
+    updateSendButtonVisibility();
 });
 
-function removeLocalStorageKey(key) {
-    localStorage.removeItem(key);
-    console.log(`Local storage key "${key}" has been removed.`);
+function updateSendButtonVisibility() {
+    if (messageInput.value.trim() === '') {
+        sendButton.style.opacity = '0';
+        sendButton.disabled = true;
+    } else {
+        sendButton.style.opacity = '1';
+        sendButton.disabled = false;
+    }
 }
-//removeLocalStorageKey('puter.auth.token');
+
+// Initialize send button visibility on page load
+updateSendButtonVisibility();
+
+messageInput.addEventListener('keydown', function (event) { // Use 'function' for 'this' to refer to messageInput
+    if (event.key === 'Enter') {
+        if (this.value.trim() !== '') { // Ensure message is not just whitespace
+            // sendButton.click();
+            addMessage('user', this.value.trim()); // Add user message to history
+        }
+        if (event.ctrlKey || event.metaKey) {
+            // Ctrl+Enter or Cmd+Enter: insert newline
+            event.preventDefault(); // Prevent any default action
+            const cursorPos = this.selectionStart;
+            const textBefore = this.value.substring(0, cursorPos);
+            const textAfter = this.value.substring(this.selectionEnd, this.value.length);
+
+            this.value = textBefore + "\n" + textAfter;
+            this.selectionStart = this.selectionEnd = cursorPos + 1; // Move cursor after newline
+
+            // Manually trigger input event if you have auto-grow or other listeners
+            // this.dispatchEvent(new Event('input', { bubbles: true }));
+        } else if (!event.shiftKey) {
+            // Enter alone: send message
+            event.preventDefault(); // Prevent default action (newline in textarea)
+            if (this.value.trim() !== '') { // Ensure message is not just whitespace
+                sendButton.click();
+            }
+        }
+        // If Shift+Enter, do nothing, let the default newline happen in textarea.
+    }
+});
+
+// Renamed to escapeHTML and corrected.
+// This function escapes HTML special characters to display a string as plain text.
+function escapeHTML(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Model selection handling for top panel
+const modelDisplayBtn = document.getElementById('model-display-btn');
+const modelSelectionPanel = document.getElementById('model-selection-panel');
+const modelSelectionList = document.getElementById('model-selection-list');
+
+function generateModelSelectionList() {
+    if (!modelSelectionList) return;
+    modelSelectionList.innerHTML = '';
+    models.forEach((model) => {
+        const li = document.createElement('li');
+        li.classList.add('cursor-pointer', 'px-4', 'py-2', 'hover:bg-indigo-100', 'flex', 'items-center', 'justify-between');
+        li.setAttribute('role', 'option');
+        li.setAttribute('tabindex', '0');
+        li.textContent = model.name;
+        li.setAttribute('data-model', model.id);
+
+        if (model.id === selectedModel) {
+            const checkIcon = document.createElement('span');
+            checkIcon.classList.add('material-icons', 'text-indigo-600');
+            checkIcon.textContent = 'check';
+            li.appendChild(checkIcon);
+        }
+
+        li.addEventListener('click', () => {
+            selectModel(li);
+        });
+
+        li.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                selectModel(li);
+            }
+        });
+
+        modelSelectionList.appendChild(li);
+    });
+}
+
+function selectModel(modelItem) {
+    // Remove selected class and check icon from all
+    const items = modelSelectionList.querySelectorAll('li');
+    items.forEach(item => {
+        item.classList.remove('selected');
+        const checkIcon = item.querySelector('.check-icon');
+        if (checkIcon) {
+            checkIcon.remove();
+        }
+    });
+
+    // Add selected class to clicked
+    modelItem.classList.add('selected');
+
+    // Add check icon to selected
+    const checkIcon = document.createElement('span');
+    checkIcon.classList.add('material-icons', 'check-icon');
+    checkIcon.textContent = 'check';
+    modelItem.appendChild(checkIcon);
+
+    // Update selected model
+    selectedModel = modelItem.getAttribute('data-model');
+    console.log(`Selected model: ${selectedModel}`);
+
+    // Update model display text in main content
+    const modelDisplayText = document.getElementById('model-display-text');
+    if (modelDisplayText) {
+        modelDisplayText.textContent = selectedModel;
+    }
+
+    // Hide model selection panel if open
+    if (modelSelectionPanel) {
+        modelSelectionPanel.classList.add('hidden');
+    }
+
+}
+
+function renderAppsList() {
+    const appsListElement = document.getElementById('apps-list');
+    if (!appsListElement) return;
+
+    appsListElement.innerHTML = ''; // Clear existing items
+
+    apps.forEach((app) => {
+        const li = document.createElement('li');
+        li.classList.add('flex', 'items-center', 'gap-2', 'p-2', 'text-gray-700', 'rounded', 'cursor-pointer', 'hover:bg-gray-200', 'select-none');
+
+        // Icon element as emoji span
+        const iconSpan = document.createElement('span');
+        iconSpan.textContent = app[1]; // Emoji icon
+        iconSpan.classList.add('text-xl');
+
+        // App name element
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = app[0];
+        nameSpan.classList.add('font-medium');
+
+        li.appendChild(iconSpan);
+        li.appendChild(nameSpan);
+
+        // Optional: Add click event or other interactions here
 
 
+        appsListElement.appendChild(li);
+    });
 
-// Event listeners for button
+    // Add click event listener to start new chat with app prompt as system message
+    appsListElement.querySelectorAll('li').forEach((li, index) => {
+        li.addEventListener('click', () => {
+            startChatWithAppPrompt(index);
+        });
+    });
+}
+
+function startChatWithAppPrompt(appIndex) {
+    const app = apps[appIndex];
+    if (!app) return;
+
+    chatMessages.innerHTML = ''; // Clear chat display
+    currentChatId = Date.now();
+    const newTitle = app[0];
+    const newSession = {
+        id: currentChatId,
+        title: newTitle,
+        messages: [
+            { role: 'user', content: app[3] }
+        ]
+    };
+    chatHistory.unshift(newSession); // Add to the beginning of history
+    saveChatHistoryToStorage();
+    renderChatHistorySidebar();
+    messageInput.value = ''; // Clear input field
+    messageInput.focus();
+    updateSendButtonVisibility();
+
+    // Automatically send the system message (app prompt) but do not save it in history
+    addMessage('system', app[2]);
+    // Automatically send the user message (question)
+    addMessage('user', app[3]);
+    isProcessing = false;
+}
+
+// Call renderAppsList on page load
+document.addEventListener('DOMContentLoaded', () => {
+    renderAppsList();
+});
+
+generateModelSelectionList();
+
+if (modelDisplayBtn && modelSelectionPanel) {
+    modelDisplayBtn.addEventListener('click', () => {
+        const isHidden = modelSelectionPanel.classList.contains('hidden');
+        if (isHidden) {
+            modelSelectionPanel.classList.remove('hidden');
+            modelDisplayBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            modelSelectionPanel.classList.add('hidden');
+            modelDisplayBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Close panel when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!modelSelectionPanel.contains(event.target) && !modelDisplayBtn.contains(event.target)) {
+            modelSelectionPanel.classList.add('hidden');
+            modelDisplayBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// Initial setup on page load
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.puter && typeof puter.setAuthToken === 'function') {
+        puter.setAuthToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InYyIn0.eyJ0IjoiYXUiLCJ2IjoiMiIsInV1IjoiSjIxTVZ2TTlRcU95N1ppOEtUQnNUUT09IiwiYXUiOiJJNUpJa1VXelFaQzNYdDF5cXQ4OU1BPT0iLCJzdSI6IlZJYkIwL09lVEI2WlhXS2lyUmlHemc9PSIsImFpIjoiSjIxTVZ2TTlRcU95N1ppOEtUQnNUUT09IiwiaWF0IjoxNzg2NzY4MDg2fQ.pih8EYyfx8_iI5poVMcoweoUmyQf7g6a3TPa2ekmQQQ");
+    }
+    loadChatHistoryFromStorage();
+    if (chatHistory.length === 0) {
+        startNewChat();
+    } else {
+        loadChatSession(chatHistory[0].id); // Load the most recent chat
+    }
+
+    if (newChatButton) {
+        newChatButton.addEventListener('click', startNewChat);
+    }
+
+    // --- Mobile sidebar functionality START ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('main');
+
+    if (mobileMenuBtn && sidebar && closeSidebarBtn && mainContent) {
+        mobileMenuBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling to document listener
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            // Dim and disable main content on mobile when sidebar is an overlay
+            if (window.innerWidth < 768) {
+                mainContent.classList.add('opacity-50', 'pointer-events-none');
+            }
+        });
+
+        closeSidebarBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full');
+            mainContent.classList.remove('opacity-50', 'pointer-events-none');
+        });
+
+        // Click outside (on document) to close sidebar on mobile
+        document.addEventListener('click', (event) => {
+            // Check if sidebar is open (i.e., has 'translate-x-0')
+            if (sidebar.classList.contains('translate-x-0')) {
+                // Check if the click was outside the sidebar and not on the mobile menu button
+                if (!sidebar.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                    // Only trigger close if on mobile view (where sidebar is an overlay)
+                    if (window.innerWidth < 768) { // Tailwind 'md' breakpoint (768px)
+                        closeSidebarBtn.click(); // Simulate click on the close button
+                    }
+                }
+            }
+        });
+    }
+
+    // Handle window resize events
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) { // Resized to desktop
+            if (mainContent) {
+                mainContent.classList.remove('opacity-50', 'pointer-events-none');
+            }
+            // Tailwind's md: classes will handle sidebar visibility/positioning
+        } else { // Resized to mobile
+            // If sidebar is open and main content isn't dimmed (e.g., was resized from desktop)
+            if (sidebar && sidebar.classList.contains('translate-x-0') && mainContent && !mainContent.classList.contains('opacity-50')) {
+                mainContent.classList.add('opacity-50', 'pointer-events-none');
+            }
+        }
+    });
+});

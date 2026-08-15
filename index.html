@@ -1,219 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with any model | Shafayat Hossain</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/lib/marked.umd.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-    <link rel="icon" href="s.ico" type="image/x-icon">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.10/marked.min.js"></script>
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-P853XZ9R');</script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain.">
+  <meta name="keywords"
+    content="AiTomo, Chat, AI, Artificial Intelligence, Smarter Chat, Collaborative Chat, Shafayat Hossain">
+  <meta name="author" content="Shafayat Hossain" />
+  <link rel="canonical" href="https://jqsafi.github.io/ai-chat/" />
+
+  <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
+  <meta property="og:title" content="AiTomo-Chat Smarter, Chat Together | Shafayat Hossain" />
+  <meta property="og:description"
+    content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jqsafi.github.io/ai-chat/" />
+  <meta property="og:image" content="https://jqsafi.github.io/og-image.jpg" />
+  <meta property="og:site_name" content="AiTomo" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AiTomo-Chat Smarter, Chat Together | Shafayat Hossain" />
+  <meta name="twitter:description"
+    content="AiTomo - Chat Smarter, Chat Together. Experience seamless AI-powered conversations with AiTomo, developed by Shafayat Hossain." />
+  <meta name="twitter:image" content="https://jqsafi.github.io/twitter-card-image.jpg" />
+  <!-- If you have a Twitter username, you can add it like this: -->
+  <!-- <meta name="twitter:site" content="@yourusername"> -->
+  <!-- <meta name="twitter:creator" content="@yourusername"> -->
+
+  <title>AiTomo-Chat Smarter, Chat Together | Shafayat Hossain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/lib/marked.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/show-language/prism-show-language.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <link rel="icon" href="s.ico" type="image/x-icon" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="container">
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1 class="logo-txt">Chat with any LLM</h1>
-            <span class="model-display" id="model-display">gpt-4o-mini</span>
-            <button id="model-select-btn" aria-label="Change model" title="Change Model">
-                <span class="material-icons">tune</span>
-            </button>
-            <div id="model-menu">
-                <div class="model-selector">
-                    <label for="model-dropdown" class="model-label">Select Model:</label>
-                    <select id="model-dropdown" onchange="handleModelChange()">
-                        <option value="gpt-4o-mini" selected>gpt-4o-mini (default)</option>
-                        <option value="gpt-4o">gpt-4o</option>
-                        <option value="o1">o1</option>
-                        <option value="o1-mini">o1-mini</option>
-                        <option value="o1-pro">o1-pro</option>
-                        <option value="o3">o3</option>
-                        <option value="o3-mini">o3-mini</option>
-                        <option value="o4-mini">o4-mini</option>
-                        <option value="gpt-4.1">gpt-4.1</option>
-                        <option value="gpt-4.1-mini">gpt-4.1-mini</option>
-                        <option value="gpt-4.1-nano">gpt-4.1-nano</option>
-                        <option value="gpt-4.5-preview">gpt-4.5-preview</option>
-                        <option value="claude-3-7-sonnet">claude-3-7-sonnet</option>
-                        <option value="claude-3-5-sonnet">claude-3-5-sonnet</option>
-                        <option value="deepseek-chat">deepseek-chat</option>
-                        <option value="deepseek-reasoner">deepseek-reasoner</option>
-                        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-                        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
-                        <option value="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo</option>
-                        <option value="meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo</option>
-                        <option value="meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo">meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo</option>
-                        <option value="mistral-large-latest">mistral-large-latest</option>
-                        <option value="pixtral-large-latest">pixtral-large-latest</option>
-                        <option value="codestral-latest">codestral-latest</option>
-                        <option value="google/gemma-2-27b-it">google/gemma-2-27b-it</option>
-                        <option value="grok-beta">grok-beta</option>
-                    </select>
-                </div>
-            </div>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P853XZ9R" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="flex h-screen w-screen overflow-hidden relative">
+    <aside id="sidebar" class="bg-gray-100 flex flex-col w-72 p-4 transition-transform duration-300 ease-in-out
+                  fixed top-0 left-0 h-full z-30 transform -translate-x-full
+                  md:relative md:translate-x-0 md:flex md:border-r md:border-gray-300">
+      <div class="flex items-center justify-between mb-2">
+        <h1 class="font-bold text-xl text-gray-900">Chusy</h1>
+        <!-- Close button for mobile sidebar -->
+        <button id="close-sidebar-btn" aria-label="Close menu" class="md:hidden text-gray-600 text-2xl">
+          <span class="material-icons">close</span>
+        </button>
+        <!-- Original menu button, now for desktop or can be repurposed/removed -->
+        <button aria-label="Desktop Menu" class="hidden md:block text-gray-600 text-2xl">
+          <span class="material-icons">menu</span>
+        </button>
+      </div>
+
+      <nav class="flex-grow overflow-y-auto mb-4 flex flex-col">
+        <section class="mb-6">
+          <h2 class="font-semibold text-gray-700 mb-2 select-none px-2">History</h2>
+          <ul class="list-none">
+            <li id="new-chat-btn"
+              class="flex items-center gap-2 p-2 text-gray-700 rounded cursor-pointer hover:bg-gray-200 select-none">
+              <span class="material-icons">add</span> New chat
+            </li>
+          </ul>
+          <ul id="chat-history-list" class="list-none max-h-48 overflow-y-auto">
+            <!-- Chat history items will be populated here -->
+          </ul>
+        </section>
+        <section class="mt-auto pt-4 border-t border-gray-300">
+          <h2 class="font-semibold text-gray-700 mb-2 select-none px-2">App</h2>
+          <ul id="apps-list" class="list-none max-h-48 overflow-y-auto">
+            <!-- Apps list items will be populated here -->
+          </ul>
+        </section>
+      </nav>
+      <!-- Removed model list from sidebar as per user request -->
+      <!--
+      <div class="border-t border-gray-300 pt-4">
+        <label class="block font-semibold text-gray-700 mb-3 select-none">Choose your model</label>
+        <ul id="model-list" class="list-none"></ul>
+      </div>
+      -->
+    </aside>
+
+    <main class="flex flex-col flex-grow bg-white p-6 overflow-hidden">
+      <div class="flex items-center gap-4 mb-4">
+        <!-- Mobile menu button (hamburger icon) -->
+        <button id="mobile-menu-btn" aria-label="Open menu" class="md:hidden text-gray-600 text-2xl">
+          <span class="material-icons">menu</span>
+        </button>
+
+        <!-- Model selection dropdown -->
+        <div class="relative inline-block">
+          <button id="model-display-btn"
+            class="flex items-center gap-2 font-semibold text-2xl text-gray-800 focus:outline-none" aria-haspopup="true"
+            aria-expanded="false" aria-label="Select model">
+            <span id="model-display-text" class="text-indigo-600 cursor-pointer">gpt-4o-mini</span>
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="model-selection-panel"
+            class="hidden absolute z-10 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <ul id="model-selection-list" class="max-h-96 overflow-auto py-1 text-base text-gray-700" role="listbox"
+              tabindex="-1">
+              <!-- Model options will be dynamically generated here -->
+            </ul>
+          </div>
         </div>
-        <div id="chat-messages" class="chat-messages"></div>
-        <div class="chat-input-area">
-            <input type="text" id="message-input" placeholder="Start Asking ......" tabindex="0" />
-            <button id="send-button">
-                <i class="material-icons">send</i>
-            </button>
-        </div>
-    </div>
-    <script src="https://jqsafi.github.io/puter.js"></script>
-    <script src="script.js"></script>
-    <script>
-        const chatMessages = document.getElementById('chat-messages');
-        const messageInput = document.getElementById('message-input');
-        const sendButton = document.getElementById('send-button');
-const modelNameDisplay = document.getElementById('model-name');
-        let currentModel = 'gpt-4o-mini'; // Default model
-        let isTyping = false;
-        let welcomeMessageShown = false;
-
-        const modelMapping = {
-            'gpt-4o-mini': 'gpt-4o-mini',
-            'gpt-4o': 'gpt-4o',
-            'o1': 'o1',
-            'o1-mini': 'o1-mini',
-            'o1-pro': 'o1-pro',
-            'o3': 'o3',
-            'o3-mini': 'o3-mini',
-            'o4-mini': 'o4-mini',
-            'gpt-4.1': 'gpt-4.1',
-            'gpt-4.1-mini': 'gpt-4.1-mini',
-            'gpt-4.1-nano': 'gpt-4.1-nano',
-            'gpt-4.5-preview': 'gpt-4.5-preview',
-            'claude-3-7-sonnet': 'claude-3-7-sonnet',
-            'claude-3-5-sonnet': 'claude-3-5-sonnet',
-            'deepseek-chat': 'deepseek-chat',
-            'deepseek-reasoner': 'deepseek-reasoner',
-            'gemini-2.0-flash': 'gemini-2.0-flash',
-            'gemini-1.5-flash': 'gemini-1.5-flash',
-            'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
-            'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-            'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo': 'meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo',
-            'mistral-large-latest': 'mistral-large-latest',
-            'pixtral-large-latest': 'pixtral-large-latest',
-            'codestral-latest': 'codestral-latest',
-            'google/gemma-2-27b-it': 'google/gemma-2-27b-it',
-            'grok-beta': 'grok-beta'
-        };
-
-        function changeModel(model) {
-            currentModel = model;
-            console.log('Selected model:', currentModel);
-            modelNameDisplay.textContent = modelMapping[model] || model;
-            sessionStorage.setItem('preferredModel', currentModel);
-        }
-
-        const preferredModel = sessionStorage.getItem('preferredModel');
-        if (preferredModel) {
-            currentModel = preferredModel;
-            modelNameDisplay.textContent = modelMapping[preferredModel] || preferredModel;
-            document.getElementById('model-selector').value = preferredModel;
-        }
-
-        function toggleHelpTooltip() {
-            const tooltip = document.getElementById('help-tooltip');
-            tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function addMessage(sender, message) {
-            if(sender === 'You') {
-                messages.push({ content: message, role: 'user' });
-                puter.ai.chat(messages).then(response => {
-                    addMessage('Tutor', response.message);
-                }).catch(error => {
-                    console.error("AI response error:", error);
-                });
-
-            } else {
-                messages.push(message);
-                message=message.content;
-            }
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'You' ? 'sent-message' : 'received-message');
-            const html = marked.parse(message, { breaks: true, smartypants: true });
-            messageElement.innerHTML = html;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            messageInput.focus();
-        }
-
-        function appendMessage(text, messageType) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${messageType}`;
-            if (messageType === 'received-message') {
-                messageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
-            } else {
-                messageDiv.textContent = text;
-            }
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            if (messageType === 'sent-message') {
-                animateMessage(messageDiv);
-            }
-        }
-
-        function updateLastMessage(text, messageType) {
-            let lastMessageDiv = chatMessages.lastElementChild;
-            if (!lastMessageDiv || lastMessageDiv.classList.contains('sent-message')) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${messageType}`;
-                messageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
-                chatMessages.appendChild(messageDiv);
-                lastMessageDiv = messageDiv;
-            } else {
-                lastMessageDiv.innerHTML = `<div class="markdown-body">${text}</div>`;
-            }
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function animateMessage(messageDiv) {
-            gsap.from(messageDiv, {
-                opacity: 0,
-                y: 20,
-                duration: 0.3,
-                ease: 'easeInOut'
-            });
-        }
-
-        function startTyping() {
-            isTyping = true;
-            const typingIndicator = document.createElement('div');
-            typingIndicator.className = 'message received-message typing-indicator';
-            typingIndicator.innerHTML = '<div class="spinner"><span></span><span></span><span></span></div>';
-            chatMessages.appendChild(typingIndicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function stopTyping() {
-            isTyping = false;
-            const typingIndicator = document.querySelector('.typing-indicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
-            }
-        }
-
-        messageInput.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
-                sendMessage();
-            }
-        });
-
-        function sendPrompt(prompt) {
-            messageInput.value = prompt;
-            sendMessage();
-        }
-    </script>
+      </div>
+      <div id="chat-messages" class="flex-grow overflow-y-auto rounded-lg bg-gray-50 p-6 mb-4 space-y-4 w-full">
+      </div>
+      <div class="relative flex items-center gap-3 w-full">
+        <textarea id="message-input" placeholder="Ask anything..." aria-label="Message input"
+          aria-describedby="message-input-description" aria-required="true" tabindex="0" autocomplete="off" rows="1"
+          class="w-full rounded-2xl border border-gray-300 bg-white px-6 py-4 pr-16 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none overflow-y-auto"></textarea>
+        <button id="send-button" aria-label="Send message" class="absolute right-3 top-1/2 -translate-y-1/2
+                 rounded-full p-2
+                 bg-indigo-600 text-white
+                 hover:bg-indigo-700 active:bg-indigo-800 active:scale-95
+                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white
+                 transition opacity-0 disabled:opacity-0">
+          <span class="material-icons">send</span>
+        </button>
+      </div>
+    </main>
+  </div>
+  <script src="puterv2.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
